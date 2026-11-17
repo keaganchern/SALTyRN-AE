@@ -1,0 +1,48 @@
+{
+ "qu8-vadd-minmax": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-AE/ae-out/verify128-opt/final/qu8-vadd-minmax.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 128,
+  "rvv_vlmax": 32,
+  "param_asserts": 21,
+  "secs": 602,
+  "max_verified": 306,
+  "methods": [
+   "split"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 307,
+    "vlen": 128
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 41,
+    "lines_instrumented": 41,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 48,
+    "lines_instrumented": 48,
+    "branch_outcomes_covered": 5,
+    "branch_outcomes": 6,
+    "partially_covered_branches": [
+     {
+      "line": "const auto round_term = salt_as<int32_t>((shift > 0) ? (1 << (shift - 1)) : 0);",
+      "true_taken": true,
+      "false_taken": false
+     }
+    ],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

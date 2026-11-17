@@ -1,0 +1,128 @@
+[
+  {
+    "kernel": "f32-gemm-minmax",
+    "vlen": 128,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 1324,
+    "completed_level": 18,
+    "attempted_shapes": 1325,
+    "methods": {
+      "uf": 19,
+      "split": 1305
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "mr",
+          "step": 1,
+          "max_index": 4
+        },
+        {
+          "name": "nc",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "kc",
+          "step": 4,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "a_stride": "kc",
+        "cm_stride": "256 * sizeof(float)",
+        "cn_stride": "8 * sizeof(float)"
+      },
+      "preconditions": [
+        "mr != 0",
+        "mr <= 4",
+        "nc != 0",
+        "kc != 0",
+        "kc % sizeof(float) == 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "mr: size (asserted nonzero), step 1, at most 4",
+        "nc: size (asserted nonzero), step 1",
+        "kc: size (asserted nonzero), step 4"
+      ]
+    },
+    "induction": {
+      "applies": false,
+      "reason": "state carried across iterations: a0c1"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen128/f32-gemm-minmax.c",
+    "last_verified_shape": {
+      "mr": 1,
+      "nc": 19,
+      "kc": 40
+    },
+    "started_utc": "2026-11-17T05:53:22.419154+00:00",
+    "elapsed_seconds": 450.00429047399666,
+    "complete_region": "mr=1..4; nc=1..18; kc=1..18 (x4 bytes)",
+    "stopped_shape": {
+      "mr": 1,
+      "nc": 19,
+      "kc": 44
+    },
+    "stopped_level": 19,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.3378305520163849,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "1,19,44",
+          "config": "symbolic+sym-clamp"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "mr": 1,
+        "nc": 19,
+        "kc": 44
+      },
+      "level": 19,
+      "elapsed_seconds": 450.0040345219895
+    },
+    "probes": {
+      "planned": 107,
+      "in_box": 107,
+      "verified": [],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 1324,
+      "reference": {
+        "lines_executed": 160,
+        "lines_instrumented": 161,
+        "branch_outcomes_covered": 10,
+        "branch_outcomes": 10,
+        "partially_covered_branches": [],
+        "unexecuted_lines": [
+          "inline float32x4_t vld1q_f32(const void* p) { return salt::vld1q_f32(static_cast<const float*>(p)); }"
+        ]
+      },
+      "candidate": {
+        "lines_executed": 83,
+        "lines_instrumented": 83,
+        "branch_outcomes_covered": 3,
+        "branch_outcomes": 4,
+        "partially_covered_branches": [
+          {
+            "line": "} while (nc != 0);",
+            "true_taken": false,
+            "false_taken": true
+          }
+        ],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-17T06:00:53.086064+00:00"
+  }
+]

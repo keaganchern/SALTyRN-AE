@@ -1,0 +1,43 @@
+{
+ "f32-vsub": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen512/f32-vsub.c",
+  "reference": "Neon",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 512,
+  "rvv_vlmax": 128,
+  "param_asserts": 0,
+  "secs": 602,
+  "max_verified": 888,
+  "methods": [
+   "split",
+   "uf"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 889,
+    "vlen": 512
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 26,
+    "lines_instrumented": 26,
+    "branch_outcomes_covered": 6,
+    "branch_outcomes": 6,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 19,
+    "lines_instrumented": 19,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

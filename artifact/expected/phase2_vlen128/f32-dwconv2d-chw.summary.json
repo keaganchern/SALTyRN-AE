@@ -1,0 +1,142 @@
+[
+ {
+  "kernel": "f32-dwconv2d-chw",
+  "vlen": 128,
+  "budget_seconds": 600.0,
+  "status": "TIMEOUT",
+  "verified_shapes": 244,
+  "completed_level": 15,
+  "attempted_shapes": 245,
+  "methods": {
+   "uf": 1,
+   "split": 243
+  },
+  "plan": {
+   "axes": [
+    {
+     "name": "input_height",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "input_width",
+     "step": 4,
+     "max_index": null
+    }
+   ],
+   "variants": {},
+   "derived": {
+    "padding_top": "1"
+   },
+   "preconditions": [
+    "input_height != 0",
+    "input_width != 0",
+    "input_width % sizeof(float) == 0",
+    "padding_top == 1"
+   ],
+   "candidate_checks": [],
+   "notes": [
+    "input_height: size (asserted nonzero), step 1",
+    "input_width: size (asserted nonzero), step 4"
+   ]
+  },
+  "induction": {
+   "applies": false,
+   "reason": "output_height is not decremented by vl"
+  },
+  "rvv": "ae-out/verify128-md/cand/f32-dwconv2d-chw.c",
+  "last_verified_shape": {
+   "input_height": 16,
+   "input_width": 16
+  },
+  "started_utc": "2026-11-16T20:29:53.379334+00:00",
+  "elapsed_seconds": 450.0060481139808,
+  "complete_region": "input_height=1..15; input_width=1..15 (x4 bytes)",
+  "stopped_shape": {
+   "input_height": 16,
+   "input_width": 20
+  },
+  "stopped_level": 16,
+  "failure": {
+   "status": "TIMEOUT",
+   "seconds": 0.43142949894536287,
+   "returncode": -9,
+   "method": null,
+   "events": [
+    {
+     "status": "SOLVING",
+     "dims": "16,20",
+     "config": "symbolic+sym-clamp"
+    }
+   ],
+   "stderr": "",
+   "hard_deadline": true,
+   "shape": {
+    "input_height": 16,
+    "input_width": 20
+   },
+   "level": 16,
+   "elapsed_seconds": 450.00594058202114
+  },
+  "probes": {
+   "planned": 8,
+   "in_box": 8,
+   "verified": [],
+   "unverified": []
+  },
+  "coverage": {
+   "verified_profiles": 244,
+   "reference": {
+    "lines_executed": 184,
+    "lines_instrumented": 194,
+    "branch_outcomes_covered": 5,
+    "branch_outcomes": 6,
+    "partially_covered_branches": [
+     {
+      "line": "if (vlmax < 1) {",
+      "true_taken": false,
+      "false_taken": true
+     }
+    ],
+    "unexecuted_lines": [
+     "{",
+     "const float* src = (const float*)src_v;",
+     "float*       dst = (float*)dst_v;",
+     "(void)dst_cap;  // stay within dst_cap floats when emitting a larger layout",
+     "for (size_t i = 0; i < src_n; i++) {",
+     "dst[i] = src[i];",
+     "}",
+     "}",
+     "vlmax = 1;  // defend against degenerate vlen",
+     "}"
+    ]
+   },
+   "candidate": {
+    "lines_executed": 184,
+    "lines_instrumented": 194,
+    "branch_outcomes_covered": 5,
+    "branch_outcomes": 6,
+    "partially_covered_branches": [
+     {
+      "line": "if (vlmax < 1) {",
+      "true_taken": false,
+      "false_taken": true
+     }
+    ],
+    "unexecuted_lines": [
+     "{",
+     "const float* src = (const float*)src_v;",
+     "float*       dst = (float*)dst_v;",
+     "(void)dst_cap;  // stay within dst_cap floats when emitting a larger layout",
+     "for (size_t i = 0; i < src_n; i++) {",
+     "dst[i] = src[i];",
+     "}",
+     "}",
+     "vlmax = 1;  // defend against degenerate vlen",
+     "}"
+    ]
+   }
+  },
+  "finished_utc": "2026-11-16T20:37:23.576157+00:00"
+ }
+]

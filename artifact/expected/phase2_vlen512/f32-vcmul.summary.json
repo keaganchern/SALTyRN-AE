@@ -1,0 +1,48 @@
+{
+ "f32-vcmul": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/f32-vcmul.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 512,
+  "rvv_vlmax": 32,
+  "param_asserts": 0,
+  "secs": 604,
+  "max_verified": 392,
+  "methods": [
+   "split"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 393,
+    "vlen": 512
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 36,
+    "lines_instrumented": 36,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 50,
+    "lines_instrumented": 50,
+    "branch_outcomes_covered": 3,
+    "branch_outcomes": 4,
+    "partially_covered_branches": [
+     {
+      "line": "if (n == 0) return;",
+      "true_taken": false,
+      "false_taken": true
+     }
+    ],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

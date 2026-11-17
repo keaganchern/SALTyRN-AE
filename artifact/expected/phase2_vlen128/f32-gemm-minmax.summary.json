@@ -1,0 +1,135 @@
+[
+ {
+  "kernel": "f32-gemm-minmax",
+  "vlen": 128,
+  "budget_seconds": 600.0,
+  "status": "TIMEOUT",
+  "verified_shapes": 1711,
+  "completed_level": 20,
+  "attempted_shapes": 1712,
+  "methods": {
+   "uf": 21,
+   "split": 1690
+  },
+  "plan": {
+   "axes": [
+    {
+     "name": "mr",
+     "step": 1,
+     "max_index": 4
+    },
+    {
+     "name": "nc",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "kc",
+     "step": 4,
+     "max_index": null
+    }
+   ],
+   "variants": {},
+   "derived": {
+    "a_stride": "kc",
+    "cm_stride": "256 * sizeof(float)",
+    "cn_stride": "8 * sizeof(float)"
+   },
+   "preconditions": [
+    "mr != 0",
+    "mr <= 4",
+    "nc != 0",
+    "kc != 0",
+    "kc % sizeof(float) == 0"
+   ],
+   "candidate_checks": [],
+   "notes": [
+    "mr: size (asserted nonzero), step 1, at most 4",
+    "nc: size (asserted nonzero), step 1",
+    "kc: size (asserted nonzero), step 4"
+   ]
+  },
+  "induction": {
+   "applies": false,
+   "reason": "no vl = vsetvl(...)"
+  },
+  "rvv": "ae-out/verify128-md/cand/f32-gemm-minmax.c",
+  "last_verified_shape": {
+   "mr": 3,
+   "nc": 21,
+   "kc": 36
+  },
+  "started_utc": "2026-11-16T20:47:18.405340+00:00",
+  "elapsed_seconds": 450.00188330799574,
+  "complete_region": "mr=1..4; nc=1..20; kc=1..20 (x4 bytes)",
+  "stopped_shape": {
+   "mr": 3,
+   "nc": 21,
+   "kc": 40
+  },
+  "stopped_level": 21,
+  "failure": {
+   "status": "TIMEOUT",
+   "seconds": 0.019116553012281656,
+   "returncode": -9,
+   "method": null,
+   "events": [],
+   "stderr": "",
+   "hard_deadline": true,
+   "shape": {
+    "mr": 3,
+    "nc": 21,
+    "kc": 40
+   },
+   "level": 21,
+   "elapsed_seconds": 450.00178426498314
+  },
+  "probes": {
+   "planned": 19,
+   "in_box": 19,
+   "verified": [],
+   "unverified": []
+  },
+  "coverage": {
+   "verified_profiles": 1711,
+   "reference": {
+    "lines_executed": 83,
+    "lines_instrumented": 83,
+    "branch_outcomes_covered": 3,
+    "branch_outcomes": 4,
+    "partially_covered_branches": [
+     {
+      "line": "} while (nc != 0);",
+      "true_taken": false,
+      "false_taken": true
+     }
+    ],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 66,
+    "lines_instrumented": 69,
+    "branch_outcomes_covered": 24,
+    "branch_outcomes": 26,
+    "partially_covered_branches": [
+     {
+      "line": "if (k_floats > 0) {",
+      "true_taken": true,
+      "false_taken": false
+     },
+     {
+      "line": "if (nc > 0) {",
+      "true_taken": false,
+      "false_taken": true
+     }
+    ],
+    "unexecuted_lines": [
+     "vl_curr = __riscv_vsetvl_e32m8(nc);",
+     "next_bias = __riscv_vle32_v_f32m8(w, vl_curr);",
+     "}"
+    ]
+   }
+  },
+  "finished_utc": "2026-11-16T20:54:48.593952+00:00"
+ }
+]

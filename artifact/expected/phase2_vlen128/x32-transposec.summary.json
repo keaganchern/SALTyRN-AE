@@ -1,0 +1,101 @@
+[
+ {
+  "kernel": "x32-transposec",
+  "vlen": 128,
+  "budget_seconds": 600.0,
+  "status": "TIMEOUT",
+  "verified_shapes": 4107,
+  "completed_level": 64,
+  "attempted_shapes": 4108,
+  "methods": {
+   "smt": 1,
+   "split": 4106
+  },
+  "plan": {
+   "axes": [
+    {
+     "name": "block_width",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "block_height",
+     "step": 1,
+     "max_index": null
+    }
+   ],
+   "variants": {},
+   "derived": {
+    "input_stride": "block_width * sizeof(unsigned int) + 8",
+    "output_stride": "block_height * sizeof(unsigned int) + 8"
+   },
+   "preconditions": [
+    "block_width == 1 || output_stride >= block_height * sizeof(uint32_t)",
+    "block_height == 1 || input_stride >= block_width * sizeof(uint32_t)"
+   ],
+   "candidate_checks": [],
+   "notes": [
+    "block_width: size (used as a loop bound), step 1",
+    "block_height: size (used as a loop bound), step 1"
+   ]
+  },
+  "induction": {
+   "applies": false,
+   "reason": "state carried across iterations: c"
+  },
+  "rvv": "ae-out/verify128-md/cand/x32-transposec.c",
+  "last_verified_shape": {
+   "block_width": 11,
+   "block_height": 65
+  },
+  "started_utc": "2026-11-16T20:38:24.658838+00:00",
+  "elapsed_seconds": 450.0023451190209,
+  "complete_region": "block_width=1..64; block_height=1..64",
+  "stopped_shape": {
+   "block_width": 12,
+   "block_height": 65
+  },
+  "stopped_level": 65,
+  "failure": {
+   "status": "TIMEOUT",
+   "seconds": 0.011155935004353523,
+   "returncode": -9,
+   "method": null,
+   "events": [],
+   "stderr": "",
+   "hard_deadline": true,
+   "shape": {
+    "block_width": 12,
+    "block_height": 65
+   },
+   "level": 65,
+   "elapsed_seconds": 450.00225905299885
+  },
+  "probes": {
+   "planned": 6,
+   "in_box": 6,
+   "verified": [],
+   "unverified": []
+  },
+  "coverage": {
+   "verified_profiles": 4107,
+   "reference": {
+    "lines_executed": 18,
+    "lines_instrumented": 18,
+    "branch_outcomes_covered": 4,
+    "branch_outcomes": 4,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 56,
+    "lines_instrumented": 56,
+    "branch_outcomes_covered": 10,
+    "branch_outcomes": 10,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  },
+  "finished_utc": "2026-11-16T20:45:54.813832+00:00"
+ }
+]

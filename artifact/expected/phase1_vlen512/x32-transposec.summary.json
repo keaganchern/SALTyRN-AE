@@ -1,0 +1,92 @@
+[
+  {
+    "kernel": "x32-transposec",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "BUDGET_EXHAUSTED",
+    "verified_shapes": 4075,
+    "completed_level": 63,
+    "attempted_shapes": 4075,
+    "methods": {
+      "smt": 1,
+      "split": 4074
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "block_width",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "block_height",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "input_stride": "block_width * sizeof(unsigned int) + 8",
+        "output_stride": "block_height * sizeof(unsigned int) + 8"
+      },
+      "preconditions": [
+        "block_width == 1 || output_stride >= block_height * sizeof(uint32_t)",
+        "block_height == 1 || input_stride >= block_width * sizeof(uint32_t)"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "block_width: size (used as a loop bound), step 1",
+        "block_height: size (used as a loop bound), step 1"
+      ]
+    },
+    "induction": {
+      "applies": false,
+      "reason": "outer for loop not over a size"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-AE/ae-out/phase1/vlen512/rvv/x32-transposec.c",
+    "last_verified_shape": {
+      "block_width": 64,
+      "block_height": 43
+    },
+    "started_utc": "2026-11-14T10:34:27.445105+00:00",
+    "elapsed_seconds": 450.21332533299574,
+    "complete_region": "block_width=1..63; block_height=1..63",
+    "stopped_shape": {
+      "block_width": 64,
+      "block_height": 44
+    },
+    "stopped_level": 64,
+    "probes": {
+      "planned": 15,
+      "in_box": 15,
+      "verified": [],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 4075,
+      "reference": {
+        "lines_executed": 44,
+        "lines_instrumented": 44,
+        "branch_outcomes_covered": 7,
+        "branch_outcomes": 8,
+        "partially_covered_branches": [
+          {
+            "line": "if (bh & 1) {",
+            "true_taken": true,
+            "false_taken": false
+          }
+        ],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 17,
+        "lines_instrumented": 17,
+        "branch_outcomes_covered": 4,
+        "branch_outcomes": 4,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-14T10:41:57.740241+00:00"
+  }
+]

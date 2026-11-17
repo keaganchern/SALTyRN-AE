@@ -1,0 +1,42 @@
+{
+ "qu8-rsum": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen512/qu8-rsum.c",
+  "reference": "Neon",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 512,
+  "rvv_vlmax": 128,
+  "param_asserts": 0,
+  "secs": 600,
+  "max_verified": 2691,
+  "methods": [
+   "int"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 2692,
+    "vlen": 512
+   }
+  ],
+  "stderr_tail": "findBuffer: concrete-data fallback for 0x627aeb99cefd (static const?)",
+  "coverage": {
+   "reference": {
+    "lines_executed": 37,
+    "lines_instrumented": 37,
+    "branch_outcomes_covered": 6,
+    "branch_outcomes": 6,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 19,
+    "lines_instrumented": 19,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

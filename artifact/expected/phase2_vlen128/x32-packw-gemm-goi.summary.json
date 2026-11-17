@@ -1,0 +1,173 @@
+[
+ {
+  "kernel": "x32-packw-gemm-goi",
+  "vlen": 128,
+  "budget_seconds": 600.0,
+  "status": "TIMEOUT",
+  "verified_shapes": 9401,
+  "completed_level": 13,
+  "attempted_shapes": 9402,
+  "methods": {
+   "split": 9401
+  },
+  "plan": {
+   "axes": [
+    {
+     "name": "g",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "nc",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "kc",
+     "step": 1,
+     "max_index": null
+    }
+   ],
+   "variants": {
+    "bias_null": [
+     0,
+     1
+    ],
+    "extra_bytes": [
+     0,
+     8
+    ]
+   },
+   "derived": {
+    "nr": "2",
+    "kr": "1",
+    "sr": "1"
+   },
+   "preconditions": [
+    "g != 0",
+    "nc != 0",
+    "kc != 0",
+    "nr == 2",
+    "kr == 1",
+    "sr == 1"
+   ],
+   "candidate_checks": [],
+   "notes": [
+    "g: size (asserted nonzero), step 1",
+    "nc: size (asserted nonzero), step 1",
+    "kc: size (asserted nonzero), step 1",
+    "extra_bytes: variant [0, 8]"
+   ]
+  },
+  "induction": {
+   "applies": false,
+   "reason": "state carried across iterations: bias"
+  },
+  "rvv": "ae-out/verify128-md/cand/x32-packw-gemm-goi.c",
+  "last_verified_shape": {
+   "g": 6,
+   "nc": 14,
+   "kc": 6,
+   "bias_null": 0,
+   "extra_bytes": 0
+  },
+  "started_utc": "2026-11-16T20:38:24.658935+00:00",
+  "elapsed_seconds": 450.0026477940264,
+  "complete_region": "g=1..13; nc=1..13; kc=1..13; bias_null in [0, 1]; extra_bytes in [0, 8]",
+  "stopped_shape": {
+   "g": 6,
+   "nc": 14,
+   "kc": 6,
+   "bias_null": 0,
+   "extra_bytes": 8
+  },
+  "stopped_level": 14,
+  "failure": {
+   "status": "TIMEOUT",
+   "seconds": 0.013713466003537178,
+   "returncode": -9,
+   "method": null,
+   "events": [],
+   "stderr": "",
+   "hard_deadline": true,
+   "shape": {
+    "g": 6,
+    "nc": 14,
+    "kc": 6,
+    "bias_null": 0,
+    "extra_bytes": 8
+   },
+   "level": 14,
+   "elapsed_seconds": 450.002512164996
+  },
+  "probes": {
+   "planned": 4,
+   "in_box": 4,
+   "verified": [],
+   "unverified": []
+  },
+  "coverage": {
+   "verified_profiles": 9401,
+   "reference": {
+    "lines_executed": 60,
+    "lines_instrumented": 60,
+    "branch_outcomes_covered": 8,
+    "branch_outcomes": 8,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 69,
+    "lines_instrumented": 100,
+    "branch_outcomes_covered": 10,
+    "branch_outcomes": 12,
+    "partially_covered_branches": [
+     {
+      "line": "while (k >= 2 * vlmax) {",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "while (k >= 2 * vlmax) {",
+      "true_taken": false,
+      "false_taken": true
+     }
+    ],
+    "unexecuted_lines": [
+     "vuint32m4_t vw0_0 = __riscv_vle32_v_u32m4(w0, vlmax);",
+     "vuint32m4_t vw1_0 = __riscv_vle32_v_u32m4(w1, vlmax);",
+     "vuint32m4_t vw0_1 = __riscv_vle32_v_u32m4(w0 + vlmax, vlmax);",
+     "vuint32m4_t vw1_1 = __riscv_vle32_v_u32m4(w1 + vlmax, vlmax);",
+     "vuint32m4x2_t vw_0 = __riscv_vundefined_u32m4x2();",
+     "vw_0 = __riscv_vset_v_u32m4_u32m4x2(vw_0, 0, vw0_0);",
+     "vw_0 = __riscv_vset_v_u32m4_u32m4x2(vw_0, 1, vw1_0);",
+     "vuint32m4x2_t vw_1 = __riscv_vundefined_u32m4x2();",
+     "vw_1 = __riscv_vset_v_u32m4_u32m4x2(vw_1, 0, vw0_1);",
+     "vw_1 = __riscv_vset_v_u32m4_u32m4x2(vw_1, 1, vw1_1);",
+     "__riscv_vsseg2e32_v_u32m4x2(packed_weights, vw_0, vlmax);",
+     "__riscv_vsseg2e32_v_u32m4x2(packed_weights + 2 * vlmax, vw_1, vlmax);",
+     "w0 += 2 * vlmax;",
+     "w1 += 2 * vlmax;",
+     "packed_weights += 4 * vlmax;",
+     "k -= 2 * vlmax;",
+     "}",
+     "vuint32m4_t vw0_0 = __riscv_vle32_v_u32m4(w0, vlmax);",
+     "vuint32m4_t vw0_1 = __riscv_vle32_v_u32m4(w0 + vlmax, vlmax);",
+     "vuint32m4x2_t vw_0 = __riscv_vundefined_u32m4x2();",
+     "vw_0 = __riscv_vset_v_u32m4_u32m4x2(vw_0, 0, vw0_0);",
+     "vw_0 = __riscv_vset_v_u32m4_u32m4x2(vw_0, 1, vzero_k);",
+     "vuint32m4x2_t vw_1 = __riscv_vundefined_u32m4x2();",
+     "vw_1 = __riscv_vset_v_u32m4_u32m4x2(vw_1, 0, vw0_1);",
+     "vw_1 = __riscv_vset_v_u32m4_u32m4x2(vw_1, 1, vzero_k);",
+     "__riscv_vsseg2e32_v_u32m4x2(packed_weights, vw_0, vlmax);",
+     "__riscv_vsseg2e32_v_u32m4x2(packed_weights + 2 * vlmax, vw_1, vlmax);",
+     "w0 += 2 * vlmax;",
+     "packed_weights += 4 * vlmax;",
+     "k -= 2 * vlmax;",
+     "}"
+    ]
+   }
+  },
+  "finished_utc": "2026-11-16T20:45:54.778735+00:00"
+ }
+]

@@ -1,0 +1,43 @@
+{
+ "s8-vclamp": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen128/s8-vclamp.c",
+  "reference": "Neon",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 128,
+  "rvv_vlmax": 128,
+  "param_asserts": 5,
+  "secs": 600,
+  "max_verified": 2821,
+  "methods": [
+   "smt",
+   "split"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 2822,
+    "vlen": 128
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 48,
+    "lines_instrumented": 48,
+    "branch_outcomes_covered": 10,
+    "branch_outcomes": 10,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 18,
+    "lines_instrumented": 18,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

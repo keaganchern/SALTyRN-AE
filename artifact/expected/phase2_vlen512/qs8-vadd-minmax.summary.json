@@ -1,0 +1,226 @@
+{
+ "qs8-vadd-minmax@multeq": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/qs8-vadd-minmax.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 512,
+  "rvv_vlmax": 128,
+  "param_asserts": 22,
+  "secs": 602,
+  "max_verified": 176,
+  "methods": [
+   "split"
+  ],
+  "max_paths": 3,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 177,
+    "vlen": 512
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 37,
+    "lines_instrumented": 37,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 83,
+    "lines_instrumented": 151,
+    "branch_outcomes_covered": 11,
+    "branch_outcomes": 22,
+    "partially_covered_branches": [
+     {
+      "line": "if (a_multiplier == b_multiplier) {",
+      "true_taken": true,
+      "false_taken": false
+     },
+     {
+      "line": "if (a_zero_point == 0 && b_zero_point == 0) {   // bias = rounding term only: added by the first vmadd",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "if (a_zero_point == 0 && b_zero_point == 0) {   // bias = rounding term only: added by the first vmadd",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "if (a_zero_point == 0 && b_zero_point == 0) {   // bias = rounding term only: added by the first vmadd",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "while (i < batch) {",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "while (i < batch) {",
+      "true_taken": false,
+      "false_taken": false
+     }
+    ],
+    "unexecuted_lines": [
+     "if (a_zero_point == 0 && b_zero_point == 0) {   // bias = rounding term only: added by the first vmadd",
+     "size_t vl = __riscv_vsetvl_e8m2(batch);",
+     "vint8m2_t va = __riscv_vle8_v_i8m2(input_a, vl);",
+     "vint8m2_t vb = __riscv_vle8_v_i8m2(input_b, vl);",
+     "size_t i = vl;",
+     "while (i < batch) {",
+     "size_t next_vl = __riscv_vsetvl_e8m2(batch - i);",
+     "vint8m2_t va_next = __riscv_vle8_v_i8m2(input_a + i, next_vl);",
+     "vint8m2_t vb_next = __riscv_vle8_v_i8m2(input_b + i, next_vl);",
+     "vint32m8_t vxa_32 = __riscv_vsext_vf4_i32m8(va, vl);",
+     "vint32m8_t vacc = __riscv_vmadd_vx_i32m8(vxa_32, a_multiplier, v_rt, vl);",
+     "vint32m8_t vxb_32 = __riscv_vsext_vf4_i32m8(vb, vl);",
+     "vacc = __riscv_vmacc_vx_i32m8(vacc, b_multiplier, vxb_32, vl);",
+     "vint16m4_t vacc_16 = __riscv_vnclip_wx_i16m4(vacc, shift, __RISCV_VXRM_RDN, vl);",
+     "vacc_16 = __riscv_vsadd_vx_i16m4(vacc_16, output_zero_point, vl);",
+     "vint8m2_t vout = __riscv_vnclip_wx_i8m2(vacc_16, 0, __RISCV_VXRM_RDN, vl);",
+     "vout = __riscv_vmax_vx_i8m2(vout, output_min, vl);",
+     "vout = __riscv_vmin_vx_i8m2(vout, output_max, vl);",
+     "__riscv_vse8_v_i8m2(output + i - vl, vout, vl);",
+     "va = va_next; vb = vb_next; vl = next_vl;",
+     "i += vl;",
+     "}",
+     "vint32m8_t vxa_32 = __riscv_vsext_vf4_i32m8(va, vl);",
+     "vint32m8_t vacc = __riscv_vmadd_vx_i32m8(vxa_32, a_multiplier, v_rt, vl);",
+     "vint32m8_t vxb_32 = __riscv_vsext_vf4_i32m8(vb, vl);",
+     "vacc = __riscv_vmacc_vx_i32m8(vacc, b_multiplier, vxb_32, vl);",
+     "vint16m4_t vacc_16 = __riscv_vnclip_wx_i16m4(vacc, shift, __RISCV_VXRM_RDN, vl);",
+     "vacc_16 = __riscv_vsadd_vx_i16m4(vacc_16, output_zero_point, vl);",
+     "vint8m2_t vout = __riscv_vnclip_wx_i8m2(vacc_16, 0, __RISCV_VXRM_RDN, vl);",
+     "vout = __riscv_vmax_vx_i8m2(vout, output_min, vl);",
+     "vout = __riscv_vmin_vx_i8m2(vout, output_max, vl);",
+     "__riscv_vse8_v_i8m2(output + i - vl, vout, vl);",
+     "} else {",
+     "size_t vl = __riscv_vsetvl_e8m2(batch);",
+     "vint8m2_t va = __riscv_vle8_v_i8m2(input_a, vl);",
+     "vint8m2_t vb = __riscv_vle8_v_i8m2(input_b, vl);",
+     "size_t i = vl;",
+     "while (i < batch) {",
+     "size_t next_vl = __riscv_vsetvl_e8m2(batch - i);",
+     "vint8m2_t va_next = __riscv_vle8_v_i8m2(input_a + i, next_vl);"
+    ]
+   }
+  }
+ },
+ "qs8-vadd-minmax@multne": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/qs8-vadd-minmax.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 512,
+  "rvv_vlmax": 128,
+  "param_asserts": 22,
+  "secs": 605,
+  "max_verified": 180,
+  "methods": [
+   "split"
+  ],
+  "max_paths": 3,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 181,
+    "vlen": 512
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 37,
+    "lines_instrumented": 37,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 88,
+    "lines_instrumented": 151,
+    "branch_outcomes_covered": 11,
+    "branch_outcomes": 22,
+    "partially_covered_branches": [
+     {
+      "line": "if (a_multiplier == b_multiplier) {",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "if (a_zero_point == 0 && b_zero_point == 0) {   // bias = rounding term only: added by the first vmadd",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "if (a_zero_point == 0 && b_zero_point == 0) {   // bias = rounding term only: added by the first vmadd",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "if (a_zero_point == 0 && b_zero_point == 0) {   // bias = rounding term only: added by the first vmadd",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "while (i < batch) {",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "while (i < batch) {",
+      "true_taken": false,
+      "false_taken": false
+     }
+    ],
+    "unexecuted_lines": [
+     "if (a_zero_point == 0 && b_zero_point == 0) {   // bias = rounding term only: added by the first vmadd",
+     "size_t vl = __riscv_vsetvl_e8m2(batch);",
+     "vint8m2_t va = __riscv_vle8_v_i8m2(input_a, vl);",
+     "vint8m2_t vb = __riscv_vle8_v_i8m2(input_b, vl);",
+     "size_t i = vl;",
+     "while (i < batch) {",
+     "size_t next_vl = __riscv_vsetvl_e8m2(batch - i);",
+     "vint8m2_t va_next = __riscv_vle8_v_i8m2(input_a + i, next_vl);",
+     "vint8m2_t vb_next = __riscv_vle8_v_i8m2(input_b + i, next_vl);",
+     "vint16m4_t vsum_16 = __riscv_vwadd_vv_i16m4(va, vb, vl);",
+     "vint32m8_t vsum_32 = __riscv_vsext_vf2_i32m8(vsum_16, vl);",
+     "vint32m8_t vacc = __riscv_vmadd_vx_i32m8(vsum_32, a_multiplier, v_rt, vl);",
+     "vint16m4_t vacc_16 = __riscv_vnclip_wx_i16m4(vacc, shift, __RISCV_VXRM_RDN, vl);",
+     "vacc_16 = __riscv_vsadd_vx_i16m4(vacc_16, output_zero_point, vl);",
+     "vint8m2_t vout = __riscv_vnclip_wx_i8m2(vacc_16, 0, __RISCV_VXRM_RDN, vl);",
+     "vout = __riscv_vmax_vx_i8m2(vout, output_min, vl);",
+     "vout = __riscv_vmin_vx_i8m2(vout, output_max, vl);",
+     "__riscv_vse8_v_i8m2(output + i - vl, vout, vl);",
+     "va = va_next; vb = vb_next; vl = next_vl;",
+     "i += vl;",
+     "}",
+     "vint16m4_t vsum_16 = __riscv_vwadd_vv_i16m4(va, vb, vl);",
+     "vint32m8_t vsum_32 = __riscv_vsext_vf2_i32m8(vsum_16, vl);",
+     "vint32m8_t vacc = __riscv_vmadd_vx_i32m8(vsum_32, a_multiplier, v_rt, vl);",
+     "vint16m4_t vacc_16 = __riscv_vnclip_wx_i16m4(vacc, shift, __RISCV_VXRM_RDN, vl);",
+     "vacc_16 = __riscv_vsadd_vx_i16m4(vacc_16, output_zero_point, vl);",
+     "vint8m2_t vout = __riscv_vnclip_wx_i8m2(vacc_16, 0, __RISCV_VXRM_RDN, vl);",
+     "vout = __riscv_vmax_vx_i8m2(vout, output_min, vl);",
+     "vout = __riscv_vmin_vx_i8m2(vout, output_max, vl);",
+     "__riscv_vse8_v_i8m2(output + i - vl, vout, vl);",
+     "} else {",
+     "size_t vl = __riscv_vsetvl_e8m2(batch);",
+     "vint8m2_t va = __riscv_vle8_v_i8m2(input_a, vl);",
+     "vint8m2_t vb = __riscv_vle8_v_i8m2(input_b, vl);",
+     "size_t i = vl;",
+     "while (i < batch) {",
+     "size_t next_vl = __riscv_vsetvl_e8m2(batch - i);",
+     "vint8m2_t va_next = __riscv_vle8_v_i8m2(input_a + i, next_vl);",
+     "vint8m2_t vb_next = __riscv_vle8_v_i8m2(input_b + i, next_vl);",
+     "vint32m8_t vacc = __riscv_vmv_v_x_i32m8(bias, vl);"
+    ]
+   }
+  }
+ }
+}

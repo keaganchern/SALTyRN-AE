@@ -1,0 +1,170 @@
+[
+  {
+    "kernel": "qd8-f32-qc4w-gemm-minmax",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 290,
+    "completed_level": 17,
+    "attempted_shapes": 291,
+    "methods": {
+      "uf": 18,
+      "split": 278
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "mr",
+          "step": 1,
+          "max_index": 1
+        },
+        {
+          "name": "nc",
+          "step": 1,
+          "max_index": 32
+        },
+        {
+          "name": "kc",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "a_stride": "kc",
+        "cm_stride": "256 * sizeof(float)",
+        "cn_stride": "16 * sizeof(float)"
+      },
+      "preconditions": [
+        "mr != 0",
+        "mr <= 1",
+        "nc != 0",
+        "kc != 0",
+        "kc % sizeof(int8_t) == 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "mr: size (asserted nonzero), step 1, at most 1",
+        "nc: size (asserted nonzero), step 1",
+        "kc: size (asserted nonzero), step 1"
+      ]
+    },
+    "induction": {
+      "applies": true,
+      "dim": "nc",
+      "stride": 16,
+      "cap": 32,
+      "assumption": "none: the reference's outer loop meets the same premise"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen512/qd8-f32-qc4w-gemm-minmax.c",
+    "last_verified_shape": {
+      "mr": 1,
+      "nc": 1,
+      "kc": 18
+    },
+    "started_utc": "2026-11-17T06:19:59.149537+00:00",
+    "elapsed_seconds": 477.67700517899357,
+    "complete_region": "mr=1..1; nc=1..17; kc=1..17",
+    "stopped_shape": {
+      "mr": 1,
+      "nc": 2,
+      "kc": 18
+    },
+    "stopped_level": 18,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.17166473099496216,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "1,2,18",
+          "config": "symbolic"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "mr": 1,
+        "nc": 2,
+        "kc": 18
+      },
+      "level": 18,
+      "elapsed_seconds": 450.00304743798915
+    },
+    "probes": {
+      "planned": 68,
+      "in_box": 62,
+      "verified": [
+        {
+          "nc": 32,
+          "mr": 1,
+          "kc": 1
+        },
+        {
+          "nc": 32,
+          "mr": 1,
+          "kc": 2
+        },
+        {
+          "nc": 33,
+          "mr": 1,
+          "kc": 1
+        },
+        {
+          "nc": 33,
+          "mr": 1,
+          "kc": 2
+        },
+        {
+          "nc": 32,
+          "mr": 1,
+          "kc": 8
+        },
+        {
+          "nc": 33,
+          "mr": 1,
+          "kc": 8
+        }
+      ],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 290,
+      "reference": {
+        "lines_executed": 238,
+        "lines_instrumented": 238,
+        "branch_outcomes_covered": 19,
+        "branch_outcomes": 22,
+        "partially_covered_branches": [
+          {
+            "line": "if (k >= 2 * sizeof(int8_t)) {",
+            "true_taken": true,
+            "false_taken": false
+          },
+          {
+            "line": "if (k >= 4 * sizeof(int8_t)) {",
+            "true_taken": true,
+            "false_taken": false
+          },
+          {
+            "line": "if (k >= 6 * sizeof(int8_t)) {",
+            "true_taken": true,
+            "false_taken": false
+          }
+        ],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 50,
+        "lines_instrumented": 50,
+        "branch_outcomes_covered": 6,
+        "branch_outcomes": 6,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-17T06:27:57.207570+00:00"
+  }
+]

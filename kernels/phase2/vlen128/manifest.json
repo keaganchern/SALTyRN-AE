@@ -1,0 +1,252 @@
+{
+ "vlen": 128,
+ "phase": 2,
+ "reference": "kernels/phase1/vlen128",
+ "kernels": {
+  "f32-vadd": {
+   "family": "elementwise",
+   "specs": [
+    "f32-vadd"
+   ],
+   "expected_bound": "913"
+  },
+  "f32-vsub": {
+   "family": "elementwise",
+   "specs": [
+    "f32-vsub"
+   ],
+   "expected_bound": "912"
+  },
+  "f32-vmul": {
+   "family": "elementwise",
+   "specs": [
+    "f32-vmul"
+   ],
+   "expected_bound": "913"
+  },
+  "f32-vdiv": {
+   "family": "elementwise",
+   "specs": [
+    "f32-vdiv"
+   ],
+   "expected_bound": "917"
+  },
+  "f32-vmax": {
+   "family": "elementwise",
+   "specs": [
+    "f32-vmax@ref"
+   ],
+   "expected_bound": "246"
+  },
+  "f32-vmin": {
+   "family": "elementwise",
+   "specs": [
+    "f32-vmin@ref"
+   ],
+   "expected_bound": "246"
+  },
+  "f32-vmulc": {
+   "family": "elementwise",
+   "specs": [
+    "f32-vmulc"
+   ],
+   "expected_bound": "924"
+  },
+  "f32-vsqrt": {
+   "family": "elementwise",
+   "specs": [
+    "f32-vsqrt"
+   ],
+   "expected_bound": "930"
+  },
+  "f32-vcmul": {
+   "family": "elementwise",
+   "specs": [
+    "f32-vcmul"
+   ],
+   "expected_bound": "404"
+  },
+  "f32-vrndne": {
+   "family": "elementwise",
+   "specs": [
+    "f32-vrndne"
+   ],
+   "expected_bound": "645"
+  },
+  "f32-f16-vcvt": {
+   "family": "elementwise",
+   "specs": [
+    "f32-f16-vcvt"
+   ],
+   "expected_bound": "522"
+  },
+  "qs8-rsum": {
+   "family": "elementwise",
+   "specs": [
+    "qs8-rsum"
+   ],
+   "expected_bound": "3012"
+  },
+  "qu8-rsum": {
+   "family": "elementwise",
+   "specs": [
+    "qu8-rsum"
+   ],
+   "expected_bound": "2992"
+  },
+  "f32-vlrelu": {
+   "family": "elementwise",
+   "specs": [
+    "f32-vlrelu"
+   ],
+   "expected_bound": "899"
+  },
+  "u8-vclamp": {
+   "family": "elementwise",
+   "specs": [
+    "u8-vclamp"
+   ],
+   "expected_bound": "2883"
+  },
+  "s8-vclamp": {
+   "family": "elementwise",
+   "specs": [
+    "s8-vclamp"
+   ],
+   "expected_bound": "2884"
+  },
+  "qu8-vadd-minmax": {
+   "family": "elementwise",
+   "specs": [
+    "qu8-vadd-minmax"
+   ],
+   "expected_bound": "306"
+  },
+  "qs8-vadd-minmax": {
+   "family": "elementwise",
+   "specs": [
+    "qs8-vadd-minmax"
+   ],
+   "expected_bound": "149"
+  },
+  "qs8-vcvt": {
+   "family": "elementwise",
+   "specs": [
+    "qs8-vcvt"
+   ],
+   "expected_bound": "562"
+  },
+  "qs8-vlrelu": {
+   "family": "elementwise",
+   "specs": [
+    "qs8-vlrelu"
+   ],
+   "expected_bound": "442"
+  },
+  "qs8-vmul-minmax-fp32": {
+   "family": "elementwise",
+   "specs": [
+    "qs8-vmul-minmax-fp32"
+   ],
+   "expected_bound": "429"
+  },
+  "qu8-f32-vcvt": {
+   "family": "elementwise",
+   "specs": [
+    "qu8-f32-vcvt"
+   ],
+   "expected_bound": "712"
+  },
+  "qs8-f32-vcvt": {
+   "family": "elementwise",
+   "specs": [
+    "qs8-f32-vcvt"
+   ],
+   "expected_bound": "717"
+  },
+  "f32-gemm-minmax": {
+   "family": "multidim",
+   "specs": [
+    "f32-gemm-minmax"
+   ],
+   "expected_bound": "mr 1..4; nc, kc 1..20"
+  },
+  "f32-igemm-minmax": {
+   "family": "multidim",
+   "specs": [
+    "f32-igemm-minmax"
+   ],
+   "expected_bound": "mr 1; nc, kc, ks 1..7"
+  },
+  "qd8-f32-qc4w-gemm-minmax": {
+   "family": "multidim",
+   "specs": [
+    "qd8-f32-qc4w-gemm-minmax"
+   ],
+   "expected_bound": "mr 1; nc, kc 1..18"
+  },
+  "f32-dwconv-minmax": {
+   "family": "multidim",
+   "specs": [
+    "f32-dwconv-minmax"
+   ],
+   "expected_bound": "channels, output width 1..17"
+  },
+  "f32-conv-hwc2chw": {
+   "family": "multidim",
+   "specs": [
+    "f32-conv-hwc2chw"
+   ],
+   "expected_bound": "input height, input width, output channels 1..7"
+  },
+  "f32-argmaxpool": {
+   "family": "multidim",
+   "specs": [
+    "f32-argmaxpool"
+   ],
+   "expected_bound": "every pixel count; pooling elements, channels 1..4"
+  },
+  "f32-maxpool": {
+   "family": "multidim",
+   "specs": [
+    "f32-maxpool"
+   ],
+   "expected_bound": "pixel count, kernel elements, channels 1..10"
+  },
+  "f32-dwconv2d-chw": {
+   "family": "multidim",
+   "specs": [
+    "f32-dwconv2d-chw"
+   ],
+   "expected_bound": "input height, input width 1..15"
+  },
+  "qs8-rdsum": {
+   "family": "multidim",
+   "specs": [
+    "qs8-rdsum"
+   ],
+   "expected_bound": "rows, channels 1..71"
+  },
+  "qu8-rdsum": {
+   "family": "multidim",
+   "specs": [
+    "qu8-rdsum"
+   ],
+   "expected_bound": "rows, channels 1..63"
+  },
+  "x32-packw-gemm-goi": {
+   "family": "multidim",
+   "specs": [
+    "x32-packw-gemm-goi"
+   ],
+   "expected_bound": "g, nc, kc 1..13"
+  },
+  "x32-transposec": {
+   "family": "multidim",
+   "specs": [
+    "x32-transposec"
+   ],
+   "expected_bound": "block width, block height 1..64"
+  }
+ }
+}

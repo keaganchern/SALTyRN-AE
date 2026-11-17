@@ -1,0 +1,64 @@
+{
+ "qs8-vmul-minmax-fp32": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-AE/ae-out/verify128-opt/final/qs8-vmul-minmax-fp32.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 128,
+  "rvv_vlmax": 32,
+  "param_asserts": 12,
+  "secs": 602,
+  "max_verified": 429,
+  "methods": [
+   "split",
+   "uf"
+  ],
+  "max_paths": 3,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 430,
+    "vlen": 128
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 34,
+    "lines_instrumented": 34,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 100,
+    "lines_instrumented": 100,
+    "branch_outcomes_covered": 22,
+    "branch_outcomes": 26,
+    "partially_covered_branches": [
+     {
+      "line": "size_t vl0 = (remaining > vlmax) ? vlmax : remaining;",
+      "true_taken": true,
+      "false_taken": false
+     },
+     {
+      "line": "if (remaining > vlmax) {",
+      "true_taken": true,
+      "false_taken": false
+     },
+     {
+      "line": "size_t vl0 = (remaining > vlmax) ? vlmax : remaining;",
+      "true_taken": true,
+      "false_taken": false
+     },
+     {
+      "line": "if (remaining > vlmax) {",
+      "true_taken": true,
+      "false_taken": false
+     }
+    ],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

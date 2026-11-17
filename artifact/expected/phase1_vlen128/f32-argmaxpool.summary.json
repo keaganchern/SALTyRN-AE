@@ -1,0 +1,387 @@
+[
+  {
+    "kernel": "f32-argmaxpool",
+    "vlen": 128,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 114,
+    "completed_level": 7,
+    "attempted_shapes": 115,
+    "methods": {
+      "simp": 146
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "output_pixels",
+          "step": 1,
+          "max_index": 2
+        },
+        {
+          "name": "pooling_elements",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "channels",
+          "step": 1,
+          "max_index": 8
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "input_offset": "0",
+        "input_pixel_stride": "0",
+        "input_increment": "pooling_elements * sizeof(void*)",
+        "output_increment": "channels * sizeof(float)",
+        "index_increment": "channels * sizeof(uint32_t)"
+      },
+      "preconditions": [
+        "output_pixels != 0",
+        "pooling_elements != 0",
+        "channels != 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "output_pixels: size (asserted nonzero), step 1",
+        "pooling_elements: size (asserted nonzero), step 1",
+        "channels: size (asserted nonzero), step 1"
+      ]
+    },
+    "induction": {
+      "applies": true,
+      "dim": "output_pixels",
+      "stride": 1,
+      "cap": 2,
+      "assumption": "none: the reference's outer loop meets the same premise",
+      "lanes": {
+        "dim": "channels",
+        "base": 4,
+        "cap": 8
+      }
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen128/f32-argmaxpool.c",
+    "last_verified_shape": {
+      "output_pixels": 2,
+      "pooling_elements": 1,
+      "channels": 8
+    },
+    "started_utc": "2026-11-17T05:53:23.686468+00:00",
+    "elapsed_seconds": 599.1184809810366,
+    "complete_region": "output_pixels=every value (outer-loop induction, stride 1; base 1..2 verified); pooling_elements=1..7; channels=1..7",
+    "stopped_shape": {
+      "output_pixels": 2,
+      "pooling_elements": 2,
+      "channels": 8
+    },
+    "stopped_level": 8,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 15.94605580798816,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "2,2,8",
+          "config": "symbolic"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "output_pixels": 2,
+        "pooling_elements": 2,
+        "channels": 8
+      },
+      "level": 8,
+      "elapsed_seconds": 450.0269901580177
+    },
+    "probes": {
+      "planned": 68,
+      "in_box": 24,
+      "verified": [
+        {
+          "pooling_elements": 8,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "pooling_elements": 8,
+          "output_pixels": 1,
+          "channels": 2
+        },
+        {
+          "pooling_elements": 9,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "pooling_elements": 9,
+          "output_pixels": 1,
+          "channels": 2
+        },
+        {
+          "pooling_elements": 10,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "pooling_elements": 8,
+          "output_pixels": 1,
+          "channels": 4
+        },
+        {
+          "pooling_elements": 10,
+          "output_pixels": 1,
+          "channels": 2
+        },
+        {
+          "channels": 3,
+          "output_pixels": 1,
+          "pooling_elements": 9
+        },
+        {
+          "pooling_elements": 9,
+          "output_pixels": 1,
+          "channels": 4
+        },
+        {
+          "pooling_elements": 10,
+          "output_pixels": 1,
+          "channels": 4
+        },
+        {
+          "channels": 5,
+          "output_pixels": 1,
+          "pooling_elements": 9
+        },
+        {
+          "channels": 8,
+          "output_pixels": 1,
+          "pooling_elements": 1
+        },
+        {
+          "channels": 8,
+          "output_pixels": 1,
+          "pooling_elements": 2
+        },
+        {
+          "channels": 9,
+          "output_pixels": 1,
+          "pooling_elements": 1
+        },
+        {
+          "channels": 9,
+          "output_pixels": 1,
+          "pooling_elements": 2
+        },
+        {
+          "pooling_elements": 11,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "pooling_elements": 11,
+          "output_pixels": 1,
+          "channels": 2
+        },
+        {
+          "pooling_elements": 12,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "pooling_elements": 12,
+          "output_pixels": 1,
+          "channels": 2
+        },
+        {
+          "pooling_elements": 13,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "pooling_elements": 11,
+          "output_pixels": 1,
+          "channels": 4
+        },
+        {
+          "pooling_elements": 13,
+          "output_pixels": 1,
+          "channels": 2
+        },
+        {
+          "pooling_elements": 14,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "pooling_elements": 12,
+          "output_pixels": 1,
+          "channels": 4
+        },
+        {
+          "pooling_elements": 14,
+          "output_pixels": 1,
+          "channels": 2
+        },
+        {
+          "pooling_elements": 15,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "pooling_elements": 13,
+          "output_pixels": 1,
+          "channels": 4
+        },
+        {
+          "pooling_elements": 15,
+          "output_pixels": 1,
+          "channels": 2
+        },
+        {
+          "pooling_elements": 16,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "channels": 8,
+          "output_pixels": 1,
+          "pooling_elements": 9
+        },
+        {
+          "pooling_elements": 16,
+          "output_pixels": 1,
+          "channels": 2
+        },
+        {
+          "pooling_elements": 17,
+          "output_pixels": 1,
+          "channels": 1
+        }
+      ],
+      "unverified": [
+        {
+          "shape": {
+            "pooling_elements": 14,
+            "output_pixels": 1,
+            "channels": 4
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "channels": 9,
+            "output_pixels": 1,
+            "pooling_elements": 9
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "pooling_elements": 15,
+            "output_pixels": 1,
+            "channels": 4
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "pooling_elements": 17,
+            "output_pixels": 1,
+            "channels": 2
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "pooling_elements": 18,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "pooling_elements": 16,
+            "output_pixels": 1,
+            "channels": 4
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "pooling_elements": 18,
+            "output_pixels": 1,
+            "channels": 2
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "pooling_elements": 19,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "pooling_elements": 17,
+            "output_pixels": 1,
+            "channels": 4
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "pooling_elements": 19,
+            "output_pixels": 1,
+            "channels": 2
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "pooling_elements": 18,
+            "output_pixels": 1,
+            "channels": 4
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "pooling_elements": 19,
+            "output_pixels": 1,
+            "channels": 4
+          },
+          "status": "NOT_RUN"
+        }
+      ]
+    },
+    "coverage": {
+      "verified_profiles": 114,
+      "reference": {
+        "lines_executed": 181,
+        "lines_instrumented": 182,
+        "branch_outcomes_covered": 32,
+        "branch_outcomes": 32,
+        "partially_covered_branches": [],
+        "unexecuted_lines": [
+          "inline float32x4_t vld1q_f32(const void* p) { return salt::vld1q_f32(static_cast<const float*>(p)); }"
+        ]
+      },
+      "candidate": {
+        "lines_executed": 97,
+        "lines_instrumented": 97,
+        "branch_outcomes_covered": 24,
+        "branch_outcomes": 24,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-17T06:03:23.866927+00:00"
+  }
+]

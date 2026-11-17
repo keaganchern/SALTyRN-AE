@@ -1,0 +1,129 @@
+[
+  {
+    "kernel": "f32-dwconv-minmax",
+    "vlen": 128,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 999,
+    "completed_level": 124,
+    "attempted_shapes": 1000,
+    "methods": {
+      "uf": 4,
+      "split": 995
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "channels",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "output_width",
+          "step": 1,
+          "max_index": 2
+        }
+      ],
+      "variants": {
+        "zero_mode": [
+          0,
+          1
+        ],
+        "input_offset": [
+          0,
+          16
+        ]
+      },
+      "derived": {
+        "input_stride": "3 * sizeof(void*)",
+        "output_increment": "0",
+        "input_pixel_stride": "0"
+      },
+      "preconditions": [
+        "channels != 0",
+        "output_width != 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "channels: size (asserted nonzero), step 1",
+        "output_width: size (asserted nonzero), step 1",
+        "input_offset: variant [0, 16]"
+      ]
+    },
+    "induction": {
+      "applies": true,
+      "dim": "output_width",
+      "stride": 1,
+      "cap": 2,
+      "assumption": "none: the reference's outer loop meets the same premise"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen128/f32-dwconv-minmax.c",
+    "last_verified_shape": {
+      "channels": 125,
+      "output_width": 2,
+      "zero_mode": 1,
+      "input_offset": 0
+    },
+    "started_utc": "2026-11-17T05:53:22.205480+00:00",
+    "elapsed_seconds": 450.0045571689843,
+    "complete_region": "channels=1..124; output_width=every value (outer-loop induction, stride 1; base 1..2 verified); zero_mode in [0, 1]; input_offset in [0, 16]",
+    "stopped_shape": {
+      "channels": 125,
+      "output_width": 2,
+      "zero_mode": 1,
+      "input_offset": 16
+    },
+    "stopped_level": 125,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.2973208299954422,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "125,2,1,16",
+          "config": "symbolic+sym-clamp"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "channels": 125,
+        "output_width": 2,
+        "zero_mode": 1,
+        "input_offset": 16
+      },
+      "level": 125,
+      "elapsed_seconds": 450.0044003989897
+    },
+    "probes": {
+      "planned": 6,
+      "in_box": 6,
+      "verified": [],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 999,
+      "reference": {
+        "lines_executed": 67,
+        "lines_instrumented": 68,
+        "branch_outcomes_covered": 8,
+        "branch_outcomes": 8,
+        "partially_covered_branches": [],
+        "unexecuted_lines": [
+          "inline float32x4_t vld1q_f32(const void* p) { return salt::vld1q_f32(static_cast<const float*>(p)); }"
+        ]
+      },
+      "candidate": {
+        "lines_executed": 44,
+        "lines_instrumented": 44,
+        "branch_outcomes_covered": 4,
+        "branch_outcomes": 4,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-17T06:00:52.898831+00:00"
+  }
+]

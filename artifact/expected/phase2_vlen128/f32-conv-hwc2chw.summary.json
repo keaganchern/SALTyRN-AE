@@ -1,0 +1,133 @@
+[
+ {
+  "kernel": "f32-conv-hwc2chw",
+  "vlen": 128,
+  "budget_seconds": 600.0,
+  "status": "TIMEOUT",
+  "verified_shapes": 477,
+  "completed_level": 7,
+  "attempted_shapes": 478,
+  "methods": {
+   "uf": 4,
+   "split": 473
+  },
+  "plan": {
+   "axes": [
+    {
+     "name": "input_height",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "input_width",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "output_channels",
+     "step": 1,
+     "max_index": null
+    }
+   ],
+   "variants": {},
+   "derived": {
+    "output_y_start": "0",
+    "output_y_end": "(input_height + 1) / 2",
+    "input_padding_top": "1",
+    "output_height_stride": "((input_width + 1) / 2) * sizeof(float)",
+    "output_channel_stride": "((input_height + 1) / 2) * ((input_width + 1) / 2) * sizeof(float)"
+   },
+   "preconditions": [
+    "input_width != 0",
+    "output_y_end > output_y_start",
+    "input_padding_top <= 1",
+    "output_channels != 0"
+   ],
+   "candidate_checks": [],
+   "notes": [
+    "input_height: size (used as a loop bound), step 1",
+    "input_width: size (asserted nonzero), step 1",
+    "output_channels: size (asserted nonzero), step 1"
+   ]
+  },
+  "induction": {
+   "applies": false,
+   "reason": "outer for loop not over a size"
+  },
+  "rvv": "ae-out/verify128-md/cand/f32-conv-hwc2chw.c",
+  "last_verified_shape": {
+   "input_height": 8,
+   "input_width": 4,
+   "output_channels": 5
+  },
+  "started_utc": "2026-11-16T20:47:18.405296+00:00",
+  "elapsed_seconds": 600.0059161100071,
+  "complete_region": "input_height=1..7; input_width=1..7; output_channels=1..7",
+  "stopped_shape": {
+   "input_height": 8,
+   "input_width": 4,
+   "output_channels": 6
+  },
+  "stopped_level": 8,
+  "failure": {
+   "status": "TIMEOUT",
+   "seconds": 1.3510275279986672,
+   "returncode": -9,
+   "method": "split",
+   "events": [
+    {
+     "status": "SOLVING",
+     "dims": "8,4,6",
+     "config": "symbolic+sym-clamp"
+    },
+    {
+     "status": "VERIFIED",
+     "dims": "8,4,6",
+     "config": "symbolic+sym-clamp",
+     "method": "split"
+    }
+   ],
+   "stderr": "",
+   "hard_deadline": true,
+   "shape": {
+    "input_height": 8,
+    "input_width": 4,
+    "output_channels": 6
+   },
+   "level": 8,
+   "elapsed_seconds": 600.0058138039894
+  },
+  "coverage": {
+   "verified_profiles": 477,
+   "reference": {
+    "lines_executed": 84,
+    "lines_instrumented": 84,
+    "branch_outcomes_covered": 21,
+    "branch_outcomes": 22,
+    "partially_covered_branches": [
+     {
+      "line": "int valid = (ix >= 0 && (size_t)ix < input_width);",
+      "true_taken": true,
+      "false_taken": false
+     }
+    ],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 136,
+    "lines_instrumented": 136,
+    "branch_outcomes_covered": 51,
+    "branch_outcomes": 52,
+    "partially_covered_branches": [
+     {
+      "line": "if (ix1 >= 0 && (size_t)ix1 < input_width) {",
+      "true_taken": true,
+      "false_taken": false
+     }
+    ],
+    "unexecuted_lines": []
+   }
+  },
+  "finished_utc": "2026-11-16T20:57:18.532022+00:00"
+ }
+]

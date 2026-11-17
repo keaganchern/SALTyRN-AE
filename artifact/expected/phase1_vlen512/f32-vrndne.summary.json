@@ -1,0 +1,43 @@
+{
+ "f32-vrndne": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen512/f32-vrndne.c",
+  "reference": "Neon",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 512,
+  "rvv_vlmax": 128,
+  "param_asserts": 0,
+  "secs": 603,
+  "max_verified": 614,
+  "methods": [
+   "split",
+   "uf"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 615,
+    "vlen": 512
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 34,
+    "lines_instrumented": 34,
+    "branch_outcomes_covered": 6,
+    "branch_outcomes": 6,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 22,
+    "lines_instrumented": 22,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

@@ -1,0 +1,207 @@
+"""Curated parameter data for the verification engine.
+
+Everything the engine (src/workflow/verification/engine/emit.py) needs when it binds
+a kernel's params struct:
+  - EDGE_VALUES / FIELD_EDGES : concrete edge-case values per field (concrete-params mode)
+  - PARAM_CONSTRAINTS         : validity asserts for symbolic params (min ≤ max, shift∈[0,31], …)
+  - PARAM_RANGES              : per-field [lo,hi] bounds for symbolic-int params (narrows the solver)
+
+This is the merge of the old `param_configs` + `kernel_profiles` modules. The legacy
+config-generation / harness-prologue helpers and the full KernelProfile bodies that the
+old Shape engine used are gone — only the data the engine actually reads remains.
+"""
+
+# ---------------------------------------------------------------------------
+# Edge values per field type (concrete-params mode)
+# ---------------------------------------------------------------------------
+EDGE_VALUES = {
+    "int8_t":       [-128, -1, 0, 1, 127],
+    "uint8_t":      [0, 1, 127, 255],
+    "int16_t":      [-128, -1, 0, 1, 127],      # stay in int8 range for sanity
+    "uint16_t":     [0, 1, 255],
+    "int32_t":      [-1, 0, 1, 127],
+    "uint32_t":     [0, 1, 31],
+    "float":        [0.0, 1.0, 0.5],
+    "xnn_float16":  [0.0, 1.0, 0.5],            # constructor takes float
+}
+
+# ---------------------------------------------------------------------------
+# Per-field semantic edge cases (override the generic type-based values)
+# ---------------------------------------------------------------------------
+FIELD_EDGES = {
+    # Shift fields — 0 disables rounding, max meaningful is ~31
+    "shift":         [0, 1, 4, 8, 15],
+    "right_pre_shift":  [0, 1, 8],
+    "right_post_shift": [0, 1, 8],
+
+    # Multipliers — 1 is identity, test small and large
+    "a_multiplier":  [1, 3, 127],
+    "b_multiplier":  [1, 2, 64],
+    "multiplier":    [1, 3, 127],
+    "positive_multiplier": [1, 100],
+    "negative_multiplier": [1, 50],
+
+    # Zero points — 0 is common, test nonzero
+    "a_zero_point":      [0, 1, -5],
+    "b_zero_point":      [0, 1, 5],
+    "input_zero_point":  [0, 1, -10],
+    "output_zero_point": [0, 5, -5],
+    "zero_point":        [0, 1, -5],
+    "kernel_zero_point": [0, 1, 128],
+
+    # Output bounds
+    "output_min": [-128],    # usually fixed at type min
+    "output_max": [127],     # usually fixed at type max
+    "min":        [-128],
+    "max":        [127],
+
+    # FP scales
+    "scale":     [0.5, 1.0, 2.0],
+    "inv_scale": [0.5, 1.0, 2.0],
+    "prescale":  [1.0],
+    "alpha":     [1.0],
+    "beta":      [1.0],
+    "slope":     [0.1, 0.5, 1.0],
+
+    # Bias
+    "bias": [0],
+
+    # Magic bias (NEON-specific conversion trick)
+    "magic_bias": [12582912.0],
+    "magic_bias_less_output_zero_point": [0x4B400000],
+    "magic_bias_less_zero_point":        [0x4B400000],
+
+    # Rounding (RNDNU quantization)
+    "rounding":  [0],
+
+    # Padding (filler bytes, usually 0)
+    "padding": [0],
+}
+
+# Integer clamp bounds, by signedness of the field. FIELD_EDGES' min/max
+# (-128/127) give only the identity clamp, and on uint8_t fields they become
+# [128, 127], which forces every output to 127. The first (base) value is the
+# full range; the rest bind one side, or both (min == max). One-at-a-time
+# variation around the base keeps min <= max.
+INT_CLAMP_EDGES = {
+    "signed":   {"min": [-128, -50, 0, 127], "max": [127, 60, 0, -128]},
+    "unsigned": {"min": [0, 16, 128, 255],   "max": [255, 240, 128, 0]},
+}
+CLAMP_FIELD_SIDE = {"output_min": "min", "output_max": "max", "min": "min", "max": "max"}
+
+# Struct-specific pairs override ambiguous field names such as "min"/"max".
+# u8 bounds are stored in uint32_t fields but consumed as unsigned bytes.
+CONCRETE_PARAM_CONFIGS = {
+    "xnn_u8_minmax_params": (
+        ["scalar.min", "scalar.max"],
+        [(str(lo), str(hi)) for lo, hi in
+         [(0, 255), (0, 0), (255, 255), (1, 254), (64, 192), (127, 128), (128, 128)]],
+    ),
+}
+
+# ---------------------------------------------------------------------------
+# Validity constraints for symbolic params (op, field_name, field_name|const)
+# ---------------------------------------------------------------------------
+PARAM_CONSTRAINTS = {
+    "xnn_qs8_add_minmax_params": [
+        ("BV_SLE", "output_min", "output_max"),
+        ("BV_SGE", "shift", 12),
+        ("BV_SLE", "shift", 30),
+        ("BV_SGT", "a_multiplier", 0),
+        ("BV_SGT", "b_multiplier", 0),
+    ],
+    "xnn_qu8_add_minmax_params": [
+        ("BV_ULE", "output_min", "output_max"),
+        ("BV_SGE", "shift", 12),
+        ("BV_SLE", "shift", 30),
+        ("BV_SGT", "a_multiplier", 0),
+        ("BV_SGT", "b_multiplier", 0),
+    ],
+    "xnn_qs8_mul_minmax_params": [
+        ("BV_SLE", "output_min", "output_max"),
+    ],
+    "xnn_qs8_conv_minmax_params": [
+        ("BV_SLE", "output_min", "output_max"),
+    ],
+    "xnn_qs8_qc8w_conv_minmax_params": [
+        ("BV_SLE", "output_min", "output_max"),
+    ],
+    "xnn_qu8_conv_minmax_params": [
+        ("BV_ULE", "output_min", "output_max"),
+    ],
+    "xnn_qs8_lrelu_params": [
+        ("BV_SGT", "positive_multiplier", 0),
+    ],
+    "xnn_qs8_cvt_params": [
+        ("BV_SGT", "multiplier", 0),
+    ],
+    "xnn_s8_minmax_params": [
+        ("BV_SLE", "min", "max"),
+    ],
+    "xnn_u8_minmax_params": [
+        ("BV_ULE", "min", "max"),
+    ],
+}
+
+# ---------------------------------------------------------------------------
+# Per-field [lo, hi] bounds for symbolic-int params (was KernelProfile.param_ranges).
+# Restricts the solver to the valid domain for kernels proved with symbolic params.
+# ---------------------------------------------------------------------------
+# The domains are XNNPACK's (src/microparams-init.c, src/tensor.c): the add
+# shift is asserted in [12, 30] (it is 20 minus the scale-ratio exponent); add
+# multipliers are at most 2^21 (positive, as quantization scales are), lrelu's
+# negative multiplier is negative for a negative slope. A wider range is a
+# stronger proof; a narrower one would leave valid params unchecked.
+_BELOW_256 = float.fromhex("0x1.fffffep+7")   # the largest float < 2^8
+# xnn_init_q{s,u}8_mul_minmax_scalar_params: 2^-16 <= product_output_scale < 2^8.
+PARAM_RANGES = {
+    "qs8-vadd": {"a_zero_point": (-128, 127), "b_zero_point": (-128, 127),
+                 "a_multiplier": (1, 0x200000), "b_multiplier": (1, 0x200000), "shift": (12, 30),
+                 "output_zero_point": (-128, 127), "output_min": (-128, 127), "output_max": (-128, 127)},
+    "qs8-vaddc": {"a_zero_point": (-128, 127), "b_zero_point": (-128, 127),
+                  "a_multiplier": (1, 0x200000), "b_multiplier": (1, 0x200000), "shift": (12, 30),
+                  "output_zero_point": (-128, 127), "output_min": (-128, 127), "output_max": (-128, 127)},
+    "qs8-vmul": {"scale": (2.0 ** -16, _BELOW_256), "a_zero_point": (-128, 127), "b_zero_point": (-128, 127),
+                 "output_zero_point": (-128, 127), "output_min": (-128, 127), "output_max": (-128, 127)},
+    "qs8-vmulc": {"scale": (2.0 ** -16, _BELOW_256), "a_zero_point": (-128, 127), "b_zero_point": (-128, 127),
+                  "output_zero_point": (-128, 127), "output_min": (-128, 127), "output_max": (-128, 127)},
+    "qs8-vlrelu": {"input_zero_point": (-128, 127), "output_zero_point": (-128, 127),
+                   "positive_multiplier": (1, 32768), "negative_multiplier": (-32767, 32768)},
+    "qs8-vcvt": {"input_zero_point": (-128, 127), "multiplier": (1, 65535),
+                 "output_zero_point": (-128, 127)},
+    "qu8-vadd": {"a_zero_point": (0, 255), "b_zero_point": (0, 255),
+                 "a_multiplier": (1, 0x200000), "b_multiplier": (1, 0x200000), "shift": (12, 30),
+                 "output_zero_point": (0, 255), "output_min": (0, 255), "output_max": (0, 255)},
+    "qu8-vaddc": {"a_zero_point": (0, 255), "b_zero_point": (0, 255),
+                  "a_multiplier": (1, 0x200000), "b_multiplier": (1, 0x200000), "shift": (12, 30),
+                  "output_zero_point": (0, 255), "output_min": (0, 255), "output_max": (0, 255)},
+    "qu8-vmul": {"scale": (2.0 ** -16, _BELOW_256), "a_zero_point": (0, 255), "b_zero_point": (0, 255),
+                 "output_zero_point": (0, 255), "output_min": (0, 255), "output_max": (0, 255)},
+    "qu8-vmulc": {"scale": (2.0 ** -16, _BELOW_256), "a_zero_point": (0, 255), "b_zero_point": (0, 255),
+                  "output_zero_point": (0, 255), "output_min": (0, 255), "output_max": (0, 255)},
+    "qu8-vlrelu": {"input_zero_point": (0, 255), "output_zero_point": (0, 255),
+                   "positive_multiplier": (1, 32768), "negative_multiplier": (-32767, 32768)},
+    "qu8-vcvt": {"input_zero_point": (0, 255), "multiplier": (1, 65535),
+                 "output_zero_point": (0, 255)},
+    # xnn_init_{s8,u8}_minmax_scalar_params store an int8_t / uint8_t bound in the
+    # 32-bit field; without the range, min <= max can fail after truncation.
+    "s8-vclamp": {"min": (-128, 127), "max": (-128, 127)},
+    "u8-vclamp": {"min": (0, 255), "max": (0, 255)},
+    # The zero point of a qint8 / quint8 tensor (tensor.c rejects any other).
+    "qs8-f32-vcvt": {"zero_point": (-128, 127)},
+    "qu8-f32-vcvt": {"zero_point": (0, 255)},
+}
+
+
+def get_param_ranges(kernel_name: str) -> dict:
+    """Per-field (lo, hi) bounds for a kernel's symbolic-int params, or {} if none.
+
+    Longest-substring match (mirrors the old get_profile lookup): e.g. a name like
+    'qs8-vaddc-rndnu' resolves to 'qs8-vaddc', and the longer 'qs8-vaddc' wins over
+    a shorter 'qs8-vadd' substring.
+    """
+    best_key, best = "", {}
+    for key, ranges in PARAM_RANGES.items():
+        if key in kernel_name and len(key) > len(best_key):
+            best_key, best = key, ranges
+    return best

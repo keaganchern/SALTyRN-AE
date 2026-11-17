@@ -1,0 +1,42 @@
+{
+ "qu8-vadd-minmax": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen512/qu8-vadd-minmax.c",
+  "reference": "Neon",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 512,
+  "rvv_vlmax": 128,
+  "param_asserts": 21,
+  "secs": 602,
+  "max_verified": 427,
+  "methods": [
+   "split"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 428,
+    "vlen": 512
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 61,
+    "lines_instrumented": 61,
+    "branch_outcomes_covered": 8,
+    "branch_outcomes": 8,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 41,
+    "lines_instrumented": 41,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

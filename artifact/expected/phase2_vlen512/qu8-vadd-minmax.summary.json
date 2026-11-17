@@ -1,0 +1,194 @@
+{
+ "qu8-vadd-minmax@multeq": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/qu8-vadd-minmax.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 512,
+  "rvv_vlmax": 128,
+  "param_asserts": 22,
+  "secs": 602,
+  "max_verified": 302,
+  "methods": [
+   "split"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 303,
+    "vlen": 512
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 41,
+    "lines_instrumented": 41,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 59,
+    "lines_instrumented": 102,
+    "branch_outcomes_covered": 4,
+    "branch_outcomes": 8,
+    "partially_covered_branches": [
+     {
+      "line": "if (batch == 0) return;",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "if (a_multiplier == b_multiplier) {",
+      "true_taken": true,
+      "false_taken": false
+     },
+     {
+      "line": "while (i < batch) {",
+      "true_taken": false,
+      "false_taken": false
+     }
+    ],
+    "unexecuted_lines": [
+     "size_t vl = __riscv_vsetvl_e8m2(batch);",
+     "vuint8m2_t va = __riscv_vle8_v_u8m2(input_a, vl);",
+     "vuint8m2_t vb = __riscv_vle8_v_u8m2(input_b, vl);",
+     "input_a += vl;",
+     "input_b += vl;",
+     "size_t i = vl;",
+     "while (i < batch) {",
+     "size_t next_vl = __riscv_vsetvl_e8m2(batch - i);",
+     "vuint8m2_t va_next = __riscv_vle8_v_u8m2(input_a, next_vl);",
+     "vuint8m2_t vb_next = __riscv_vle8_v_u8m2(input_b, next_vl);",
+     "const vuint32m8_t va32_u = __riscv_vzext_vf4_u32m8(va, vl);",
+     "const vint32m8_t va32 = __riscv_vreinterpret_v_u32m8_i32m8(va32_u);",
+     "vint32m8_t vacc = __riscv_vmadd_vx_i32m8(va32, a_multiplier, vinit_acc, vl);",
+     "const vuint32m8_t vb32_u = __riscv_vzext_vf4_u32m8(vb, vl);",
+     "const vint32m8_t vb32 = __riscv_vreinterpret_v_u32m8_i32m8(vb32_u);",
+     "vacc = __riscv_vmacc_vx_i32m8(vacc, b_multiplier, vb32, vl);",
+     "vint16m4_t vacc16 = __riscv_vnclip_wx_i16m4(vacc, shift, __RISCV_VXRM_RDN, vl);",
+     "vacc16 = __riscv_vsadd_vx_i16m4(vacc16, output_zero_point, vl);",
+     "vacc16 = __riscv_vmax_vx_i16m4(vacc16, output_min.cast<int16_t>(), vl);",
+     "vuint8m2_t vout = __riscv_vnclipu_wx_u8m2(__riscv_vreinterpret_v_i16m4_u16m4(vacc16), 0, __RISCV_VXRM_RDN, vl);",
+     "vout = __riscv_vminu_vx_u8m2(vout, output_max, vl);",
+     "__riscv_vse8_v_u8m2(output, vout, vl);",
+     "input_a += next_vl;",
+     "input_b += next_vl;",
+     "output += vl;",
+     "va = va_next;",
+     "vb = vb_next;",
+     "vl = next_vl;",
+     "i += vl;",
+     "}",
+     "const vuint32m8_t va32_u = __riscv_vzext_vf4_u32m8(va, vl);",
+     "const vint32m8_t va32 = __riscv_vreinterpret_v_u32m8_i32m8(va32_u);",
+     "vint32m8_t vacc = __riscv_vmadd_vx_i32m8(va32, a_multiplier, vinit_acc, vl);",
+     "const vuint32m8_t vb32_u = __riscv_vzext_vf4_u32m8(vb, vl);",
+     "const vint32m8_t vb32 = __riscv_vreinterpret_v_u32m8_i32m8(vb32_u);",
+     "vacc = __riscv_vmacc_vx_i32m8(vacc, b_multiplier, vb32, vl);",
+     "vint16m4_t vacc16 = __riscv_vnclip_wx_i16m4(vacc, shift, __RISCV_VXRM_RDN, vl);",
+     "vacc16 = __riscv_vsadd_vx_i16m4(vacc16, output_zero_point, vl);",
+     "vacc16 = __riscv_vmax_vx_i16m4(vacc16, output_min.cast<int16_t>(), vl);",
+     "vuint8m2_t vout = __riscv_vnclipu_wx_u8m2(__riscv_vreinterpret_v_i16m4_u16m4(vacc16), 0, __RISCV_VXRM_RDN, vl);"
+    ]
+   }
+  }
+ },
+ "qu8-vadd-minmax@multne": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/qu8-vadd-minmax.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 512,
+  "rvv_vlmax": 128,
+  "param_asserts": 22,
+  "secs": 601,
+  "max_verified": 304,
+  "methods": [
+   "split"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 305,
+    "vlen": 512
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 41,
+    "lines_instrumented": 41,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 64,
+    "lines_instrumented": 102,
+    "branch_outcomes_covered": 4,
+    "branch_outcomes": 8,
+    "partially_covered_branches": [
+     {
+      "line": "if (batch == 0) return;",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "if (a_multiplier == b_multiplier) {",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "while (i < batch) {",
+      "true_taken": false,
+      "false_taken": false
+     }
+    ],
+    "unexecuted_lines": [
+     "size_t vl = __riscv_vsetvl_e8m2(batch);",
+     "vuint8m2_t va = __riscv_vle8_v_u8m2(input_a, vl);",
+     "vuint8m2_t vb = __riscv_vle8_v_u8m2(input_b, vl);",
+     "input_a += vl;",
+     "input_b += vl;",
+     "size_t i = vl;",
+     "while (i < batch) {",
+     "size_t next_vl = __riscv_vsetvl_e8m2(batch - i);",
+     "vuint8m2_t va_next = __riscv_vle8_v_u8m2(input_a, next_vl);",
+     "vuint8m2_t vb_next = __riscv_vle8_v_u8m2(input_b, next_vl);",
+     "const vuint16m4_t vab = __riscv_vwaddu_vv_u16m4(va, vb, vl);",
+     "const vuint32m8_t vab32_u = __riscv_vzext_vf2_u32m8(vab, vl);",
+     "const vint32m8_t vab32 = __riscv_vreinterpret_v_u32m8_i32m8(vab32_u);",
+     "vint32m8_t vacc = __riscv_vmadd_vx_i32m8(vab32, a_multiplier, vinit_acc, vl);",
+     "vint16m4_t vacc16 = __riscv_vnclip_wx_i16m4(vacc, shift, __RISCV_VXRM_RDN, vl);",
+     "vacc16 = __riscv_vsadd_vx_i16m4(vacc16, output_zero_point, vl);",
+     "vacc16 = __riscv_vmax_vx_i16m4(vacc16, output_min.cast<int16_t>(), vl);",
+     "vuint8m2_t vout = __riscv_vnclipu_wx_u8m2(__riscv_vreinterpret_v_i16m4_u16m4(vacc16), 0, __RISCV_VXRM_RDN, vl);",
+     "vout = __riscv_vminu_vx_u8m2(vout, output_max, vl);",
+     "__riscv_vse8_v_u8m2(output, vout, vl);",
+     "input_a += next_vl;",
+     "input_b += next_vl;",
+     "output += vl;",
+     "va = va_next;",
+     "vb = vb_next;",
+     "vl = next_vl;",
+     "i += vl;",
+     "}",
+     "const vuint16m4_t vab = __riscv_vwaddu_vv_u16m4(va, vb, vl);",
+     "const vuint32m8_t vab32_u = __riscv_vzext_vf2_u32m8(vab, vl);",
+     "const vint32m8_t vab32 = __riscv_vreinterpret_v_u32m8_i32m8(vab32_u);",
+     "vint32m8_t vacc = __riscv_vmadd_vx_i32m8(vab32, a_multiplier, vinit_acc, vl);",
+     "vint16m4_t vacc16 = __riscv_vnclip_wx_i16m4(vacc, shift, __RISCV_VXRM_RDN, vl);",
+     "vacc16 = __riscv_vsadd_vx_i16m4(vacc16, output_zero_point, vl);",
+     "vacc16 = __riscv_vmax_vx_i16m4(vacc16, output_min.cast<int16_t>(), vl);",
+     "vuint8m2_t vout = __riscv_vnclipu_wx_u8m2(__riscv_vreinterpret_v_i16m4_u16m4(vacc16), 0, __RISCV_VXRM_RDN, vl);",
+     "vout = __riscv_vminu_vx_u8m2(vout, output_max, vl);",
+     "__riscv_vse8_v_u8m2(output, vout, vl);"
+    ]
+   }
+  }
+ }
+}

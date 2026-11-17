@@ -1,0 +1,121 @@
+[
+  {
+    "kernel": "x32-packw-gemm-goi",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "BUDGET_EXHAUSTED",
+    "verified_shapes": 7639,
+    "completed_level": 30,
+    "attempted_shapes": 7639,
+    "methods": {
+      "split": 7639
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "g",
+          "step": 1,
+          "max_index": 2
+        },
+        {
+          "name": "nc",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "kc",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {
+        "bias_null": [
+          0,
+          1
+        ],
+        "extra_bytes": [
+          0,
+          8
+        ]
+      },
+      "derived": {
+        "nr": "2",
+        "kr": "1",
+        "sr": "1"
+      },
+      "preconditions": [
+        "g != 0",
+        "nc != 0",
+        "kc != 0",
+        "nr == 2",
+        "kr == 1",
+        "sr == 1"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "g: size (asserted nonzero), step 1",
+        "nc: size (asserted nonzero), step 1",
+        "kc: size (asserted nonzero), step 1",
+        "extra_bytes: variant [0, 8]"
+      ]
+    },
+    "induction": {
+      "applies": true,
+      "dim": "g",
+      "stride": 1,
+      "cap": 2,
+      "assumption": "none: the reference's outer loop meets the same premise"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/x32-packw-gemm-goi.c",
+    "last_verified_shape": {
+      "g": 2,
+      "nc": 31,
+      "kc": 19,
+      "bias_null": 1,
+      "extra_bytes": 0
+    },
+    "started_utc": "2026-11-17T08:43:09.034569+00:00",
+    "elapsed_seconds": 450.00060236500576,
+    "complete_region": "g=every value (outer-loop induction, stride 1; base 1..2 verified); nc=1..30; kc=1..30; bias_null in [0, 1]; extra_bytes in [0, 8]",
+    "stopped_shape": {
+      "g": 2,
+      "nc": 31,
+      "kc": 19,
+      "bias_null": 1,
+      "extra_bytes": 8
+    },
+    "stopped_level": 31,
+    "probes": {
+      "planned": 6,
+      "in_box": 6,
+      "verified": [],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 7639,
+      "reference": {
+        "lines_executed": 62,
+        "lines_instrumented": 62,
+        "branch_outcomes_covered": 14,
+        "branch_outcomes": 14,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 175,
+        "lines_instrumented": 175,
+        "branch_outcomes_covered": 25,
+        "branch_outcomes": 26,
+        "partially_covered_branches": [
+          {
+            "line": "if (vl2 < 2) vl2 = 2;",
+            "true_taken": false,
+            "false_taken": true
+          }
+        ],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-17T08:50:39.323975+00:00"
+  }
+]

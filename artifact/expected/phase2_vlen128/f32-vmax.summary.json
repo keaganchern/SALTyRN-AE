@@ -1,0 +1,44 @@
+{
+ "f32-vmax@ref": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-AE/ae-out/verify128-opt/rvv/f32-vmax.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "XNNPACK (ref NaN = any)",
+  "vlen": 128,
+  "rvv_vlmax": 32,
+  "param_asserts": 0,
+  "secs": 602,
+  "max_verified": 246,
+  "methods": [
+   "simp",
+   "smt"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 247,
+    "vlen": 128,
+    "config": "no-params"
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 19,
+    "lines_instrumented": 19,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 19,
+    "lines_instrumented": 19,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}
