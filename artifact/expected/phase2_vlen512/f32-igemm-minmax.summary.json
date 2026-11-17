@@ -1,0 +1,309 @@
+[
+  {
+    "kernel": "f32-igemm-minmax",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 1360,
+    "completed_level": 6,
+    "attempted_shapes": 1361,
+    "methods": {
+      "uf": 182,
+      "ac": 14,
+      "split": 1175
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "mr",
+          "step": 1,
+          "max_index": 1
+        },
+        {
+          "name": "nc",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "kc",
+          "step": 4,
+          "max_index": null
+        },
+        {
+          "name": "ks",
+          "step": 8,
+          "max_index": null
+        }
+      ],
+      "variants": {
+        "zero_mode": [
+          0,
+          1
+        ],
+        "a_offset": [
+          0,
+          4
+        ]
+      },
+      "derived": {
+        "cm_stride": "256 * sizeof(float)",
+        "cn_stride": "8 * sizeof(float)"
+      },
+      "preconditions": [
+        "mr != 0",
+        "mr <= 1",
+        "nc != 0",
+        "kc != 0",
+        "kc % sizeof(float) == 0",
+        "ks != 0",
+        "ks % (1 * sizeof(void*)) == 0",
+        "a_offset % sizeof(float) == 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "mr: size (asserted nonzero), step 1, at most 1",
+        "nc: size (asserted nonzero), step 1",
+        "kc: size (asserted nonzero), step 4",
+        "ks: size (asserted nonzero), step 8",
+        "a_offset: variant [0, 4]"
+      ]
+    },
+    "induction": {
+      "applies": false,
+      "reason": "outer while loop not over a size"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/f32-igemm-minmax.c",
+    "last_verified_shape": {
+      "mr": 1,
+      "nc": 7,
+      "kc": 28,
+      "ks": 32,
+      "zero_mode": 1,
+      "a_offset": 4
+    },
+    "started_utc": "2026-11-17T08:34:30.347253+00:00",
+    "elapsed_seconds": 450.7812641389901,
+    "complete_region": "mr=1..1; nc=1..6; kc=1..6 (x4 bytes); ks=1..6 (x8 bytes); zero_mode in [0, 1]; a_offset in [0, 4]",
+    "stopped_shape": {
+      "mr": 1,
+      "nc": 7,
+      "kc": 28,
+      "ks": 40,
+      "zero_mode": 0,
+      "a_offset": 0
+    },
+    "stopped_level": 7,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.02211336698383093,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "1,7,28,40,0,0",
+          "config": "symbolic+sym-clamp"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "mr": 1,
+        "nc": 7,
+        "kc": 28,
+        "ks": 40,
+        "zero_mode": 0,
+        "a_offset": 0
+      },
+      "level": 7,
+      "elapsed_seconds": 450.002824199968
+    },
+    "probes": {
+      "planned": 15,
+      "in_box": 4,
+      "verified": [
+        {
+          "nc": 8,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 8,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 9,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 9,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "kc": 12,
+          "mr": 1,
+          "nc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "kc": 16,
+          "mr": 1,
+          "nc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "kc": 20,
+          "mr": 1,
+          "nc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 16,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 16,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 17,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 17,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        }
+      ],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 1360,
+      "reference": {
+        "lines_executed": 57,
+        "lines_instrumented": 57,
+        "branch_outcomes_covered": 8,
+        "branch_outcomes": 8,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 50,
+        "lines_instrumented": 99,
+        "branch_outcomes_covered": 12,
+        "branch_outcomes": 22,
+        "partially_covered_branches": [
+          {
+            "line": "while (__builtin_expect(nc >= 2 * nr, 1)) {",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "if (a0 != zero) {",
+            "true_taken": false,
+            "false_taken": false
+          },
+          {
+            "line": "while (a0 < a_end_4) {",
+            "true_taken": false,
+            "false_taken": false
+          },
+          {
+            "line": "while (a0 < a_end) {",
+            "true_taken": false,
+            "false_taken": false
+          },
+          {
+            "line": "} while (--p != 0);",
+            "true_taken": false,
+            "false_taken": false
+          },
+          {
+            "line": "size_t vl = __riscv_vsetvl_e32m4(nc < nr ? nc : nr);",
+            "true_taken": true,
+            "false_taken": false
+          }
+        ],
+        "unexecuted_lines": [
+          "const size_t vl = nr;",
+          "const float* w0 = w;",
+          "const float* w1 = w + tile_stride;",
+          "vfloat32m4_t vacc0 = __riscv_vle32_v_f32m4(w0, vl); w0 += nr;",
+          "vfloat32m4_t vacc1 = __riscv_vle32_v_f32m4(w1, vl); w1 += nr;",
+          "size_t p = ks_groups;",
+          "const float** ai = a;",
+          "do {",
+          "const float* restrict a0 = *ai++;",
+          "if (a0 != zero) {",
+          "a0 = (const float*) ((uintptr_t) a0 + a_offset);",
+          "}",
+          "{",
+          "const float* a_end_4 = a0 + (kc_elems & ~((size_t)3));",
+          "const float* a_end   = a0 + kc_elems;",
+          "while (a0 < a_end_4) {",
+          "const float va0 = a0[0];",
+          "const float va1 = a0[1];",
+          "const float va2 = a0[2];",
+          "const float va3 = a0[3];",
+          "a0 += 4;",
+          "vacc0 = __riscv_vfmacc_vf_f32m4(vacc0, va0, __riscv_vle32_v_f32m4(w0, vl), vl);",
+          "vacc1 = __riscv_vfmacc_vf_f32m4(vacc1, va0, __riscv_vle32_v_f32m4(w1, vl), vl);",
+          "vacc0 = __riscv_vfmacc_vf_f32m4(vacc0, va1, __riscv_vle32_v_f32m4(w0 + nr, vl), vl);",
+          "vacc1 = __riscv_vfmacc_vf_f32m4(vacc1, va1, __riscv_vle32_v_f32m4(w1 + nr, vl), vl);",
+          "vacc0 = __riscv_vfmacc_vf_f32m4(vacc0, va2, __riscv_vle32_v_f32m4(w0 + 2 * nr, vl), vl);",
+          "vacc1 = __riscv_vfmacc_vf_f32m4(vacc1, va2, __riscv_vle32_v_f32m4(w1 + 2 * nr, vl), vl);",
+          "vacc0 = __riscv_vfmacc_vf_f32m4(vacc0, va3, __riscv_vle32_v_f32m4(w0 + 3 * nr, vl), vl);",
+          "vacc1 = __riscv_vfmacc_vf_f32m4(vacc1, va3, __riscv_vle32_v_f32m4(w1 + 3 * nr, vl), vl);",
+          "w0 += 4 * nr; w1 += 4 * nr;",
+          "}",
+          "while (a0 < a_end) {",
+          "const float va = *a0++;",
+          "vacc0 = __riscv_vfmacc_vf_f32m4(vacc0, va, __riscv_vle32_v_f32m4(w0, vl), vl);",
+          "vacc1 = __riscv_vfmacc_vf_f32m4(vacc1, va, __riscv_vle32_v_f32m4(w1, vl), vl);",
+          "w0 += nr; w1 += nr;",
+          "}",
+          "}",
+          "} while (--p != 0);",
+          "vacc0 = __riscv_vfmin_vv_f32m4(vacc0, vmax, vl);"
+        ]
+      }
+    },
+    "finished_utc": "2026-11-17T08:42:01.528233+00:00"
+  }
+]

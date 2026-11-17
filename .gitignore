@@ -1,0 +1,48 @@
+src/workflow/llm/keys.py
+__pycache__/
+*.pyc
+*.egg-info/
+build/xnnpack-kernel/
+build/verification/cmake_build/
+logs/
+.venv/
+kernels/status.json
+
+
+
+# CMake in-source build artifacts
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+/Makefile
+
+# Generated verification build trees, parallel build slots, generated harnesses
+build/slots/
+build/verification_cvc5/
+build/verification_bw/
+build/verification/harnesses/verify_*.cpp
+
+# Editor
+.vscode/
+
+# Locally extracted solver distributions
+third_party/cvc5/install/
+third_party/bitwuzla/
+
+# artifact run output
+artifact/out/
+# local cvc5 install or symlink (see README)
+third_party/cvc5
+
+# ae/e2e.sh runs
+ae-out/
+.venv
+
+# ./ae.sh setup: SIMDe checkout
+third_party/simde/
+
+# ./ae.sh results
+out/
+
+# Lean build output (lake build)
+.lake/

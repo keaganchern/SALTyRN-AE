@@ -1,0 +1,51 @@
+{
+ "qs8-rsum": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-AE/ae-out/verify128-opt/rvv/qs8-rsum.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 128,
+  "rvv_vlmax": 128,
+  "param_asserts": 0,
+  "secs": 600,
+  "max_verified": 3012,
+  "methods": [
+   "int"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 3013,
+    "vlen": 128
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 20,
+    "lines_instrumented": 20,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 46,
+    "lines_instrumented": 48,
+    "branch_outcomes_covered": 7,
+    "branch_outcomes": 8,
+    "partially_covered_branches": [
+     {
+      "line": "if (inner_batch > max_inner) {",
+      "true_taken": false,
+      "false_taken": true
+     }
+    ],
+    "unexecuted_lines": [
+     "inner_batch = max_inner;",
+     "}"
+    ]
+   }
+  }
+ }
+}

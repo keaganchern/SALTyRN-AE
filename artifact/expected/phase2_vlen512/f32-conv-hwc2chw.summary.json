@@ -1,0 +1,273 @@
+[
+  {
+    "kernel": "f32-conv-hwc2chw",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 312,
+    "completed_level": 6,
+    "attempted_shapes": 313,
+    "methods": {
+      "uf": 4,
+      "split": 332
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "input_height",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "input_width",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "output_channels",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "output_y_start": "0",
+        "output_y_end": "(input_height + 1) / 2",
+        "input_padding_top": "1",
+        "output_height_stride": "((input_width + 1) / 2) * sizeof(float)",
+        "output_channel_stride": "((input_height + 1) / 2) * ((input_width + 1) / 2) * sizeof(float)"
+      },
+      "preconditions": [
+        "input_width != 0",
+        "output_y_end > output_y_start",
+        "input_padding_top <= 1",
+        "output_channels != 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "input_height: size (used as a loop bound), step 1",
+        "input_width: size (asserted nonzero), step 1",
+        "output_channels: size (asserted nonzero), step 1"
+      ]
+    },
+    "induction": {
+      "applies": false,
+      "reason": "outer for loop not over a size"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/f32-conv-hwc2chw.c",
+    "last_verified_shape": {
+      "input_height": 7,
+      "input_width": 3,
+      "output_channels": 4
+    },
+    "started_utc": "2026-11-17T08:35:03.501220+00:00",
+    "elapsed_seconds": 467.9290352019598,
+    "complete_region": "input_height=1..6; input_width=1..6; output_channels=1..6",
+    "stopped_shape": {
+      "input_height": 7,
+      "input_width": 3,
+      "output_channels": 5
+    },
+    "stopped_level": 7,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.28149988799123093,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "MEMORY_WARNING",
+          "dims": "7,3,5",
+          "config": "symbolic+sym-clamp",
+          "violations": [
+            {
+              "buffer": "zero",
+              "access": "read",
+              "lo": 12,
+              "hi": 35,
+              "allowed_lo": 0,
+              "allowed_hi": -1
+            }
+          ]
+        },
+        {
+          "status": "SOLVING",
+          "dims": "7,3,5",
+          "config": "symbolic+sym-clamp"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "input_height": 7,
+        "input_width": 3,
+        "output_channels": 5
+      },
+      "level": 7,
+      "elapsed_seconds": 450.0039966100012
+    },
+    "probes": {
+      "planned": 50,
+      "in_box": 26,
+      "verified": [
+        {
+          "input_width": 7,
+          "input_height": 1,
+          "output_channels": 1
+        },
+        {
+          "output_channels": 7,
+          "input_height": 1,
+          "input_width": 1
+        },
+        {
+          "input_width": 7,
+          "input_height": 1,
+          "output_channels": 2
+        },
+        {
+          "input_width": 8,
+          "input_height": 1,
+          "output_channels": 1
+        },
+        {
+          "output_channels": 7,
+          "input_height": 1,
+          "input_width": 2
+        },
+        {
+          "output_channels": 8,
+          "input_height": 1,
+          "input_width": 1
+        },
+        {
+          "input_width": 8,
+          "input_height": 1,
+          "output_channels": 2
+        },
+        {
+          "input_width": 9,
+          "input_height": 1,
+          "output_channels": 1
+        },
+        {
+          "output_channels": 8,
+          "input_height": 1,
+          "input_width": 2
+        },
+        {
+          "output_channels": 9,
+          "input_height": 1,
+          "input_width": 1
+        },
+        {
+          "input_width": 9,
+          "input_height": 1,
+          "output_channels": 2
+        },
+        {
+          "output_channels": 7,
+          "input_height": 1,
+          "input_width": 4
+        },
+        {
+          "output_channels": 9,
+          "input_height": 1,
+          "input_width": 2
+        },
+        {
+          "output_channels": 10,
+          "input_height": 1,
+          "input_width": 1
+        },
+        {
+          "input_width": 7,
+          "input_height": 1,
+          "output_channels": 5
+        },
+        {
+          "output_channels": 8,
+          "input_height": 1,
+          "input_width": 4
+        },
+        {
+          "output_channels": 10,
+          "input_height": 1,
+          "input_width": 2
+        },
+        {
+          "output_channels": 11,
+          "input_height": 1,
+          "input_width": 1
+        },
+        {
+          "input_width": 8,
+          "input_height": 1,
+          "output_channels": 5
+        },
+        {
+          "output_channels": 9,
+          "input_height": 1,
+          "input_width": 4
+        },
+        {
+          "output_channels": 11,
+          "input_height": 1,
+          "input_width": 2
+        },
+        {
+          "input_width": 9,
+          "input_height": 1,
+          "output_channels": 5
+        },
+        {
+          "output_channels": 10,
+          "input_height": 1,
+          "input_width": 4
+        },
+        {
+          "output_channels": 11,
+          "input_height": 1,
+          "input_width": 4
+        }
+      ],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 312,
+      "reference": {
+        "lines_executed": 484,
+        "lines_instrumented": 484,
+        "branch_outcomes_covered": 32,
+        "branch_outcomes": 32,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 163,
+        "lines_instrumented": 167,
+        "branch_outcomes_covered": 30,
+        "branch_outcomes": 32,
+        "partially_covered_branches": [
+          {
+            "line": "if (output_y_start < input_padding_top) {",
+            "true_taken": true,
+            "false_taken": false
+          },
+          {
+            "line": "while (rem > 0) {",
+            "true_taken": false,
+            "false_taken": true
+          }
+        ],
+        "unexecuted_lines": [
+          "size_t vl = __riscv_vsetvl_e32m1(rem);",
+          "BLOCK(0, 0)",
+          "rem -= vl;",
+          "}"
+        ]
+      }
+    },
+    "finished_utc": "2026-11-17T08:42:52.036773+00:00"
+  }
+]

@@ -1,0 +1,144 @@
+[
+  {
+    "kernel": "f32-maxpool",
+    "vlen": 128,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 664,
+    "completed_level": 41,
+    "attempted_shapes": 665,
+    "methods": {
+      "ac": 42,
+      "split": 625
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "output_pixels",
+          "step": 1,
+          "max_index": 2
+        },
+        {
+          "name": "kernel_elements",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "channels",
+          "step": 1,
+          "max_index": 8
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "input_offset": "0",
+        "input_pixel_stride": "0",
+        "input_increment": "kernel_elements * sizeof(void*)",
+        "output_increment": "channels * sizeof(float)"
+      },
+      "preconditions": [
+        "output_pixels != 0",
+        "channels != 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "output_pixels: size (asserted nonzero), step 1",
+        "kernel_elements: size (used as a loop bound), step 1",
+        "channels: size (asserted nonzero), step 1"
+      ]
+    },
+    "induction": {
+      "applies": true,
+      "dim": "output_pixels",
+      "stride": 1,
+      "cap": 2,
+      "assumption": "none: the reference's outer loop meets the same premise",
+      "lanes": {
+        "dim": "channels",
+        "base": 4,
+        "cap": 8
+      }
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen128/f32-maxpool.c",
+    "last_verified_shape": {
+      "output_pixels": 1,
+      "kernel_elements": 42,
+      "channels": 8
+    },
+    "started_utc": "2026-11-17T05:53:22.424177+00:00",
+    "elapsed_seconds": 450.79664265201427,
+    "complete_region": "output_pixels=every value (outer-loop induction, stride 1; base 1..2 verified); kernel_elements=1..41; channels=every value (lane decomposition, T=4; base 1..8 verified)",
+    "stopped_shape": {
+      "output_pixels": 2,
+      "kernel_elements": 42,
+      "channels": 1
+    },
+    "stopped_level": 42,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.25765287200920284,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "2,42,1",
+          "config": "symbolic+sym-clamp"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "output_pixels": 2,
+        "kernel_elements": 42,
+        "channels": 1
+      },
+      "level": 42,
+      "elapsed_seconds": 450.0039482439752
+    },
+    "probes": {
+      "planned": 116,
+      "in_box": 113,
+      "verified": [
+        {
+          "channels": 9,
+          "output_pixels": 1,
+          "kernel_elements": 1
+        },
+        {
+          "channels": 9,
+          "output_pixels": 1,
+          "kernel_elements": 2
+        },
+        {
+          "channels": 9,
+          "output_pixels": 1,
+          "kernel_elements": 18
+        }
+      ],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 664,
+      "reference": {
+        "lines_executed": 154,
+        "lines_instrumented": 155,
+        "branch_outcomes_covered": 52,
+        "branch_outcomes": 52,
+        "partially_covered_branches": [],
+        "unexecuted_lines": [
+          "inline float32x4_t vld1q_f32(const void* p) { return salt::vld1q_f32(static_cast<const float*>(p)); }"
+        ]
+      },
+      "candidate": {
+        "lines_executed": 103,
+        "lines_instrumented": 103,
+        "branch_outcomes_covered": 40,
+        "branch_outcomes": 40,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-17T06:00:53.743612+00:00"
+  }
+]

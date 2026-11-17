@@ -1,0 +1,280 @@
+[
+  {
+    "kernel": "f32-igemm-minmax",
+    "vlen": 128,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 396,
+    "completed_level": 4,
+    "attempted_shapes": 397,
+    "methods": {
+      "uf": 91,
+      "ac": 10,
+      "split": 310
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "mr",
+          "step": 1,
+          "max_index": 1
+        },
+        {
+          "name": "nc",
+          "step": 1,
+          "max_index": 64
+        },
+        {
+          "name": "kc",
+          "step": 4,
+          "max_index": null
+        },
+        {
+          "name": "ks",
+          "step": 8,
+          "max_index": null
+        }
+      ],
+      "variants": {
+        "zero_mode": [
+          0,
+          1
+        ],
+        "a_offset": [
+          0,
+          4
+        ]
+      },
+      "derived": {
+        "cm_stride": "256 * sizeof(float)",
+        "cn_stride": "8 * sizeof(float)"
+      },
+      "preconditions": [
+        "mr != 0",
+        "mr <= 1",
+        "nc != 0",
+        "kc != 0",
+        "kc % sizeof(float) == 0",
+        "ks != 0",
+        "ks % (1 * sizeof(void*)) == 0",
+        "a_offset % sizeof(float) == 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "mr: size (asserted nonzero), step 1, at most 1",
+        "nc: size (asserted nonzero), step 1",
+        "kc: size (asserted nonzero), step 4",
+        "ks: size (asserted nonzero), step 8",
+        "a_offset: variant [0, 4]"
+      ]
+    },
+    "induction": {
+      "applies": true,
+      "dim": "nc",
+      "stride": 32,
+      "cap": 64,
+      "assumption": "none: the reference's outer loop meets the same premise"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen128/f32-igemm-minmax.c",
+    "last_verified_shape": {
+      "mr": 1,
+      "nc": 4,
+      "kc": 20,
+      "ks": 32,
+      "zero_mode": 1,
+      "a_offset": 4
+    },
+    "started_utc": "2026-11-17T05:53:22.112663+00:00",
+    "elapsed_seconds": 453.043400768016,
+    "complete_region": "mr=1..1; nc=1..4; kc=1..4 (x4 bytes); ks=1..4 (x8 bytes); zero_mode in [0, 1]; a_offset in [0, 4]",
+    "stopped_shape": {
+      "mr": 1,
+      "nc": 4,
+      "kc": 20,
+      "ks": 40,
+      "zero_mode": 0,
+      "a_offset": 0
+    },
+    "stopped_level": 5,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.07338277704548091,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "1,4,20,40,0,0",
+          "config": "symbolic+sym-clamp"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "mr": 1,
+        "nc": 4,
+        "kc": 20,
+        "ks": 40,
+        "zero_mode": 0,
+        "a_offset": 0
+      },
+      "level": 5,
+      "elapsed_seconds": 450.0026256550336
+    },
+    "probes": {
+      "planned": 26,
+      "in_box": 11,
+      "verified": [
+        {
+          "nc": 5,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 5,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 8,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 8,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 9,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 9,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "kc": 12,
+          "mr": 1,
+          "nc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "kc": 20,
+          "mr": 1,
+          "nc": 1,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "kc": 20,
+          "mr": 1,
+          "nc": 2,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "kc": 16,
+          "mr": 1,
+          "nc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "kc": 20,
+          "mr": 1,
+          "nc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 16,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 16,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 17,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 17,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        }
+      ],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 396,
+      "reference": {
+        "lines_executed": 76,
+        "lines_instrumented": 77,
+        "branch_outcomes_covered": 12,
+        "branch_outcomes": 12,
+        "partially_covered_branches": [],
+        "unexecuted_lines": [
+          "inline float32x4_t vld1q_f32(const void* p) { return salt::vld1q_f32(static_cast<const float*>(p)); }"
+        ]
+      },
+      "candidate": {
+        "lines_executed": 45,
+        "lines_instrumented": 45,
+        "branch_outcomes_covered": 5,
+        "branch_outcomes": 6,
+        "partially_covered_branches": [
+          {
+            "line": "} while (nc != 0);",
+            "true_taken": false,
+            "false_taken": true
+          }
+        ],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-17T06:00:56.105459+00:00"
+  }
+]

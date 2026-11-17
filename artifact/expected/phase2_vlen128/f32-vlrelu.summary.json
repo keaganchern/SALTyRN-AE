@@ -1,0 +1,43 @@
+{
+ "f32-vlrelu": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-AE/ae-out/verify128-opt/rvv/f32-vlrelu.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 128,
+  "rvv_vlmax": 32,
+  "param_asserts": 0,
+  "secs": 601,
+  "max_verified": 899,
+  "methods": [
+   "split",
+   "uf"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 900,
+    "vlen": 128
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 20,
+    "lines_instrumented": 20,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 39,
+    "lines_instrumented": 39,
+    "branch_outcomes_covered": 6,
+    "branch_outcomes": 6,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

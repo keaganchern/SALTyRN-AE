@@ -1,0 +1,242 @@
+[
+  {
+    "kernel": "f32-igemm-minmax",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 506,
+    "completed_level": 5,
+    "attempted_shapes": 507,
+    "methods": {
+      "uf": 96,
+      "simp": 10,
+      "split": 411
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "mr",
+          "step": 1,
+          "max_index": 1
+        },
+        {
+          "name": "nc",
+          "step": 1,
+          "max_index": 16
+        },
+        {
+          "name": "kc",
+          "step": 4,
+          "max_index": null
+        },
+        {
+          "name": "ks",
+          "step": 8,
+          "max_index": null
+        }
+      ],
+      "variants": {
+        "zero_mode": [
+          0,
+          1
+        ],
+        "a_offset": [
+          0,
+          4
+        ]
+      },
+      "derived": {
+        "cm_stride": "256 * sizeof(float)",
+        "cn_stride": "8 * sizeof(float)"
+      },
+      "preconditions": [
+        "mr != 0",
+        "mr <= 1",
+        "nc != 0",
+        "kc != 0",
+        "kc % sizeof(float) == 0",
+        "ks != 0",
+        "ks % (1 * sizeof(void*)) == 0",
+        "a_offset % sizeof(float) == 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "mr: size (asserted nonzero), step 1, at most 1",
+        "nc: size (asserted nonzero), step 1",
+        "kc: size (asserted nonzero), step 4",
+        "ks: size (asserted nonzero), step 8",
+        "a_offset: variant [0, 4]"
+      ]
+    },
+    "induction": {
+      "applies": true,
+      "dim": "nc",
+      "stride": 8,
+      "cap": 16,
+      "assumption": "none: the reference's outer loop meets the same premise"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-AE/ae-out/phase1/vlen512/rvv/f32-igemm-minmax.c",
+    "last_verified_shape": {
+      "mr": 1,
+      "nc": 1,
+      "kc": 8,
+      "ks": 48,
+      "zero_mode": 0,
+      "a_offset": 4
+    },
+    "started_utc": "2026-11-15T06:22:02.210602+00:00",
+    "elapsed_seconds": 450.89688914100407,
+    "complete_region": "mr=1..1; nc=1..5; kc=1..5 (x4 bytes); ks=1..5 (x8 bytes); zero_mode in [0, 1]; a_offset in [0, 4]",
+    "stopped_shape": {
+      "mr": 1,
+      "nc": 1,
+      "kc": 8,
+      "ks": 48,
+      "zero_mode": 1,
+      "a_offset": 0
+    },
+    "stopped_level": 6,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 3.712560151005164,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "1,1,8,48,1,0",
+          "config": "symbolic+sym-clamp"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "mr": 1,
+        "nc": 1,
+        "kc": 8,
+        "ks": 48,
+        "zero_mode": 1,
+        "a_offset": 0
+      },
+      "level": 6,
+      "elapsed_seconds": 450.01535193703603
+    },
+    "probes": {
+      "planned": 26,
+      "in_box": 15,
+      "verified": [
+        {
+          "nc": 8,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 8,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 9,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 9,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "kc": 12,
+          "mr": 1,
+          "nc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "kc": 16,
+          "mr": 1,
+          "nc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "kc": 20,
+          "mr": 1,
+          "nc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 16,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 16,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 17,
+          "mr": 1,
+          "kc": 4,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        },
+        {
+          "nc": 17,
+          "mr": 1,
+          "kc": 8,
+          "ks": 8,
+          "zero_mode": 0,
+          "a_offset": 0
+        }
+      ],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 506,
+      "reference": {
+        "lines_executed": 76,
+        "lines_instrumented": 77,
+        "branch_outcomes_covered": 12,
+        "branch_outcomes": 12,
+        "partially_covered_branches": [],
+        "unexecuted_lines": [
+          "inline float32x4_t vld1q_f32(const void* p) { return salt::vld1q_f32(static_cast<const float*>(p)); }"
+        ]
+      },
+      "candidate": {
+        "lines_executed": 57,
+        "lines_instrumented": 57,
+        "branch_outcomes_covered": 8,
+        "branch_outcomes": 8,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-15T06:29:33.411780+00:00"
+  }
+]

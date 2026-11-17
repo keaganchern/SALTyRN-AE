@@ -1,0 +1,139 @@
+[
+  {
+    "kernel": "x32-packw-gemm-goi",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 7903,
+    "completed_level": 31,
+    "attempted_shapes": 7904,
+    "methods": {
+      "split": 7903
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "g",
+          "step": 1,
+          "max_index": 2
+        },
+        {
+          "name": "nc",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "kc",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {
+        "bias_null": [
+          0,
+          1
+        ],
+        "extra_bytes": [
+          0,
+          8
+        ]
+      },
+      "derived": {
+        "nr": "2",
+        "kr": "1",
+        "sr": "1"
+      },
+      "preconditions": [
+        "g != 0",
+        "nc != 0",
+        "kc != 0",
+        "nr == 2",
+        "kr == 1",
+        "sr == 1"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "g: size (asserted nonzero), step 1",
+        "nc: size (asserted nonzero), step 1",
+        "kc: size (asserted nonzero), step 1",
+        "extra_bytes: variant [0, 8]"
+      ]
+    },
+    "induction": {
+      "applies": true,
+      "dim": "g",
+      "stride": 1,
+      "cap": 2,
+      "assumption": "reference implements the operator for every size, parallel in g"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-AE/ae-out/phase1/vlen512/rvv/x32-packw-gemm-goi.c",
+    "last_verified_shape": {
+      "g": 1,
+      "nc": 32,
+      "kc": 23,
+      "bias_null": 1,
+      "extra_bytes": 0
+    },
+    "started_utc": "2026-11-15T06:10:39.535836+00:00",
+    "elapsed_seconds": 450.0026600320125,
+    "complete_region": "g=every value (outer-loop induction, stride 1; base 1..2 verified); nc=1..31; kc=1..31; bias_null in [0, 1]; extra_bytes in [0, 8]",
+    "stopped_shape": {
+      "g": 1,
+      "nc": 32,
+      "kc": 23,
+      "bias_null": 1,
+      "extra_bytes": 8
+    },
+    "stopped_level": 32,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.05683795001823455,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "1,32,23,1,8",
+          "config": "symbolic"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "g": 1,
+        "nc": 32,
+        "kc": 23,
+        "bias_null": 1,
+        "extra_bytes": 8
+      },
+      "level": 32,
+      "elapsed_seconds": 450.00253691599937
+    },
+    "probes": {
+      "planned": 15,
+      "in_box": 15,
+      "verified": [],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 7903,
+      "reference": {
+        "lines_executed": 59,
+        "lines_instrumented": 59,
+        "branch_outcomes_covered": 10,
+        "branch_outcomes": 10,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 62,
+        "lines_instrumented": 62,
+        "branch_outcomes_covered": 14,
+        "branch_outcomes": 14,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-15T06:18:09.693195+00:00"
+  }
+]

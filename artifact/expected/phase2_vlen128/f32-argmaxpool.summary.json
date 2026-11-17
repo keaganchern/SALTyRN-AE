@@ -1,0 +1,223 @@
+[
+ {
+  "kernel": "f32-argmaxpool",
+  "vlen": 128,
+  "budget_seconds": 600.0,
+  "status": "TIMEOUT",
+  "verified_shapes": 46,
+  "completed_level": 4,
+  "attempted_shapes": 47,
+  "methods": {
+   "simp": 53
+  },
+  "plan": {
+   "axes": [
+    {
+     "name": "output_pixels",
+     "step": 1,
+     "max_index": 2
+    },
+    {
+     "name": "pooling_elements",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "channels",
+     "step": 1,
+     "max_index": null
+    }
+   ],
+   "variants": {},
+   "derived": {
+    "input_offset": "0",
+    "input_pixel_stride": "0",
+    "input_increment": "pooling_elements * sizeof(void*)",
+    "output_increment": "channels * sizeof(float)",
+    "index_increment": "channels * sizeof(uint32_t)"
+   },
+   "preconditions": [
+    "output_pixels != 0",
+    "pooling_elements != 0",
+    "channels != 0"
+   ],
+   "candidate_checks": [],
+   "notes": [
+    "output_pixels: size (asserted nonzero), step 1",
+    "pooling_elements: size (asserted nonzero), step 1",
+    "channels: size (asserted nonzero), step 1"
+   ]
+  },
+  "induction": {
+   "applies": true,
+   "dim": "output_pixels",
+   "stride": 1,
+   "cap": 2,
+   "assumption": "none: the reference's outer loop meets the same premise"
+  },
+  "rvv": "ae-out/verify128-md/cand/f32-argmaxpool.c",
+  "last_verified_shape": {
+   "output_pixels": 2,
+   "pooling_elements": 5,
+   "channels": 1
+  },
+  "started_utc": "2026-11-16T20:18:51.106497+00:00",
+  "elapsed_seconds": 599.5270771330106,
+  "complete_region": "output_pixels=every value (outer-loop induction, stride 1; base 1..2 verified); pooling_elements=1..4; channels=1..4",
+  "stopped_shape": {
+   "output_pixels": 2,
+   "pooling_elements": 5,
+   "channels": 2
+  },
+  "stopped_level": 5,
+  "failure": {
+   "status": "TIMEOUT",
+   "seconds": 11.422892303962726,
+   "returncode": -9,
+   "method": null,
+   "events": [
+    {
+     "status": "SOLVING",
+     "dims": "2,5,2",
+     "config": "symbolic"
+    }
+   ],
+   "stderr": "",
+   "hard_deadline": true,
+   "shape": {
+    "output_pixels": 2,
+    "pooling_elements": 5,
+    "channels": 2
+   },
+   "level": 5,
+   "elapsed_seconds": 450.02149836701574
+  },
+  "probes": {
+   "planned": 18,
+   "in_box": 3,
+   "verified": [
+    {
+     "pooling_elements": 5,
+     "output_pixels": 1,
+     "channels": 1
+    },
+    {
+     "pooling_elements": 6,
+     "output_pixels": 1,
+     "channels": 1
+    },
+    {
+     "pooling_elements": 7,
+     "output_pixels": 1,
+     "channels": 1
+    },
+    {
+     "pooling_elements": 9,
+     "output_pixels": 1,
+     "channels": 1
+    },
+    {
+     "pooling_elements": 10,
+     "output_pixels": 1,
+     "channels": 1
+    },
+    {
+     "pooling_elements": 11,
+     "output_pixels": 1,
+     "channels": 1
+    },
+    {
+     "pooling_elements": 12,
+     "output_pixels": 1,
+     "channels": 1
+    }
+   ],
+   "unverified": [
+    {
+     "shape": {
+      "pooling_elements": 8,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "pooling_elements": 13,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "pooling_elements": 14,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "pooling_elements": 15,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "pooling_elements": 16,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "pooling_elements": 17,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "pooling_elements": 18,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "pooling_elements": 19,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    }
+   ]
+  },
+  "coverage": {
+   "verified_profiles": 46,
+   "reference": {
+    "lines_executed": 97,
+    "lines_instrumented": 97,
+    "branch_outcomes_covered": 24,
+    "branch_outcomes": 24,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 71,
+    "lines_instrumented": 71,
+    "branch_outcomes_covered": 10,
+    "branch_outcomes": 10,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  },
+  "finished_utc": "2026-11-16T20:28:50.850667+00:00"
+ }
+]

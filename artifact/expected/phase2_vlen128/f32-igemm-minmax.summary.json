@@ -1,0 +1,171 @@
+[
+ {
+  "kernel": "f32-igemm-minmax",
+  "vlen": 128,
+  "budget_seconds": 600.0,
+  "status": "TIMEOUT",
+  "verified_shapes": 1390,
+  "completed_level": 7,
+  "attempted_shapes": 1391,
+  "methods": {
+   "uf": 202,
+   "ac": 14,
+   "split": 1176
+  },
+  "plan": {
+   "axes": [
+    {
+     "name": "mr",
+     "step": 1,
+     "max_index": 1
+    },
+    {
+     "name": "nc",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "kc",
+     "step": 4,
+     "max_index": null
+    },
+    {
+     "name": "ks",
+     "step": 8,
+     "max_index": null
+    }
+   ],
+   "variants": {
+    "zero_mode": [
+     0,
+     1
+    ],
+    "a_offset": [
+     0,
+     4
+    ]
+   },
+   "derived": {
+    "cm_stride": "256 * sizeof(float)",
+    "cn_stride": "8 * sizeof(float)"
+   },
+   "preconditions": [
+    "mr != 0",
+    "mr <= 1",
+    "nc != 0",
+    "kc != 0",
+    "kc % sizeof(float) == 0",
+    "ks != 0",
+    "ks % (1 * sizeof(void*)) == 0",
+    "a_offset % sizeof(float) == 0"
+   ],
+   "candidate_checks": [],
+   "notes": [
+    "mr: size (asserted nonzero), step 1, at most 1",
+    "nc: size (asserted nonzero), step 1",
+    "kc: size (asserted nonzero), step 4",
+    "ks: size (asserted nonzero), step 8",
+    "a_offset: variant [0, 4]"
+   ]
+  },
+  "induction": {
+   "applies": false,
+   "reason": "outer for loop not over a size"
+  },
+  "rvv": "ae-out/verify128-md/cand/f32-igemm-minmax.c",
+  "last_verified_shape": {
+   "mr": 1,
+   "nc": 1,
+   "kc": 20,
+   "ks": 64,
+   "zero_mode": 0,
+   "a_offset": 4
+  },
+  "started_utc": "2026-11-16T20:47:18.405200+00:00",
+  "elapsed_seconds": 450.3040482480428,
+  "complete_region": "mr=1..1; nc=1..7; kc=1..7 (x4 bytes); ks=1..7 (x8 bytes); zero_mode in [0, 1]; a_offset in [0, 4]",
+  "stopped_shape": {
+   "mr": 1,
+   "nc": 1,
+   "kc": 20,
+   "ks": 64,
+   "zero_mode": 1,
+   "a_offset": 0
+  },
+  "stopped_level": 8,
+  "failure": {
+   "status": "TIMEOUT",
+   "seconds": 5.500089903012849,
+   "returncode": -9,
+   "method": null,
+   "events": [
+    {
+     "status": "SOLVING",
+     "dims": "1,1,20,64,1,0",
+     "config": "symbolic+sym-clamp"
+    }
+   ],
+   "stderr": "",
+   "hard_deadline": true,
+   "shape": {
+    "mr": 1,
+    "nc": 1,
+    "kc": 20,
+    "ks": 64,
+    "zero_mode": 1,
+    "a_offset": 0
+   },
+   "level": 8,
+   "elapsed_seconds": 450.0377943390049
+  },
+  "probes": {
+   "planned": 4,
+   "in_box": 2,
+   "verified": [
+    {
+     "kc": 32,
+     "mr": 1,
+     "nc": 1,
+     "ks": 8,
+     "zero_mode": 0,
+     "a_offset": 0
+    },
+    {
+     "kc": 36,
+     "mr": 1,
+     "nc": 1,
+     "ks": 8,
+     "zero_mode": 0,
+     "a_offset": 0
+    }
+   ],
+   "unverified": []
+  },
+  "coverage": {
+   "verified_profiles": 1390,
+   "reference": {
+    "lines_executed": 45,
+    "lines_instrumented": 45,
+    "branch_outcomes_covered": 5,
+    "branch_outcomes": 6,
+    "partially_covered_branches": [
+     {
+      "line": "} while (nc != 0);",
+      "true_taken": false,
+      "false_taken": true
+     }
+    ],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 65,
+    "lines_instrumented": 65,
+    "branch_outcomes_covered": 10,
+    "branch_outcomes": 10,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  },
+  "finished_utc": "2026-11-16T20:54:48.882762+00:00"
+ }
+]

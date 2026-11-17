@@ -1,0 +1,44 @@
+{
+ "f32-vmin@ref": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen512/f32-vmin.c",
+  "reference": "Neon",
+  "nan_rule": "XNNPACK (ref NaN = any)",
+  "vlen": 512,
+  "rvv_vlmax": 128,
+  "param_asserts": 0,
+  "secs": 604,
+  "max_verified": 183,
+  "methods": [
+   "simp",
+   "smt"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 184,
+    "vlen": 512,
+    "config": "no-params"
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 26,
+    "lines_instrumented": 26,
+    "branch_outcomes_covered": 6,
+    "branch_outcomes": 6,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 19,
+    "lines_instrumented": 19,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

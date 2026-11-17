@@ -1,0 +1,36 @@
+kernel,phase1_bound,phase2_bound,input_domain,parameters
+f32-vadd,907,913,"2 x f32, all bit patterns",none
+f32-vsub,901,912,"2 x f32, all bit patterns",none
+f32-vmul,903,913,"2 x f32, all bit patterns",none
+f32-vdiv,903,917,"2 x f32, all bit patterns",none
+f32-vmax,182,246,"2 x f32, all bit patterns",none
+f32-vmin,183,246,"2 x f32, all bit patterns",none
+f32-vmulc,923,924,"f32 array + f32 scalar, all bit patterns",none
+f32-vsqrt,919,930,"f32, all bit patterns",none
+f32-vcmul,422,404,"4 x f32 (re/im of a and b), all bit patterns",none
+f32-vrndne,615,645,"f32, all bit patterns",none
+f32-f16-vcvt,488,522,"f32, all bit patterns",none
+f32-vlrelu,866,899,"f32, all bit patterns",slope: any f32
+qs8-rsum,2910,3012,"int8, full range",none
+qu8-rsum,2822,2992,"uint8, full range",none
+u8-vclamp,2822,2883,"uint8, full range","min, max in [0, 255]; min <= max"
+s8-vclamp,2821,2884,"int8, full range","min, max in [-128, 127]; min <= max"
+qu8-vadd-minmax,418,306,"2 x uint8, full range","zero points in [0, 255]; multipliers in [1, 2^21]; shift in [12, 30]; output min <= max in [0, 255]"
+qs8-vadd-minmax,430,149,"2 x int8, full range","zero points in [-128, 127]; multipliers in [1, 2^21]; shift in [12, 30]; output min <= max in [-128, 127]"
+qs8-vcvt,933,562,"int8, full range","zero points in [-128, 127]; multiplier in [1, 65535]"
+qs8-vlrelu,834,442,"int8, full range","zero points in [-128, 127]; positive multiplier in [1, 32768]; negative multiplier in [-32767, 32768]"
+qs8-vmul-minmax-fp32,583,429,"2 x int8, full range","zero points in [-128, 127]; scale in [2^-16, 2^8); output min <= max in [-128, 127]"
+qu8-f32-vcvt,708,712,"uint8, full range","zero point in [0, 255]; scale: any f32"
+qs8-f32-vcvt,666,717,"int8, full range","zero point in [-128, 127]; scale: any f32"
+f32-argmaxpool,"every pixel count; pooling elements, channels 1..7","every pixel count; pooling elements, channels 1..4","f32 inputs, all bit patterns",none
+f32-dwconv-minmax,channels 1..124; every output width,"channels, output width 1..17","f32 inputs and weights, all bit patterns","clamp min <= max, neither NaN"
+f32-dwconv2d-chw,"input height, input width 1..13","input height, input width 1..15","f32 inputs and weights, all bit patterns","clamp min <= max, neither NaN"
+f32-gemm-minmax,"mr 1..4; nc, kc 1..18","mr 1..4; nc, kc 1..20","f32 inputs, weights and bias, all bit patterns","clamp min <= max, neither NaN"
+f32-igemm-minmax,"mr 1; nc, kc, ks 1..4","mr 1; nc, kc, ks 1..7","f32 inputs, weights and bias, all bit patterns","clamp min <= max, neither NaN"
+f32-maxpool,every pixel count; kernel elements 1..41; every channel count,"pixel count, kernel elements, channels 1..10","f32 inputs, all bit patterns","clamp min <= max, neither NaN"
+qd8-f32-qc4w-gemm-minmax,"mr 1; nc, kc 1..16","mr 1; nc, kc 1..18","int8 activations and packed int4 weights, full range; weight scale positive finite; bias all bit patterns","clamp min <= max, neither NaN; zero point in [-128, 127]; inv_scale positive finite"
+qs8-rdsum,"rows, channels 1..68","rows, channels 1..71","int8, full range",none
+qu8-rdsum,"rows, channels 1..65","rows, channels 1..63","uint8, full range",none
+x32-packw-gemm-goi,"every g; nc, kc 1..30","g, nc, kc 1..13","32-bit weights and bias, all bit patterns",none
+x32-transposec,"block width, block height 1..61","block width, block height 1..64","32-bit elements, all bit patterns",none
+f32-conv-hwc2chw,"input height, input width, output channels 1..6","input height, input width, output channels 1..7","f32 inputs and weights, all bit patterns","clamp min <= max, neither NaN"

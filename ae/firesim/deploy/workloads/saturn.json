@@ -1,0 +1,11 @@
+{
+    "benchmark_name": "saturn",
+    "common_simulation_outputs": ["uartlog"],
+    "workloads": [
+        {
+            "name": "saturn_test-baremetal",
+            "bootbinary": "saturn_test-baremetal",
+            "rootfs": "../../../../../software/firemarshal/boards/default/installers/firesim/dummy.rootfs"
+        }
+    ]
+}

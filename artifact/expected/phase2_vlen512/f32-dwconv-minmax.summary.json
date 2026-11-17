@@ -1,0 +1,118 @@
+[
+  {
+    "kernel": "f32-dwconv-minmax",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 1270,
+    "completed_level": 17,
+    "attempted_shapes": 1271,
+    "methods": {
+      "uf": 4,
+      "split": 1266
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "channels",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "output_width",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {
+        "zero_mode": [
+          0,
+          1
+        ],
+        "input_offset": [
+          0,
+          16
+        ]
+      },
+      "derived": {
+        "input_stride": "3 * sizeof(void*)",
+        "output_increment": "0",
+        "input_pixel_stride": "0"
+      },
+      "preconditions": [
+        "channels != 0",
+        "output_width != 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "channels: size (asserted nonzero), step 1",
+        "output_width: size (asserted nonzero), step 1",
+        "input_offset: variant [0, 16]"
+      ]
+    },
+    "induction": {
+      "applies": false,
+      "reason": "state carried across iterations: channel_idx"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/f32-dwconv-minmax.c",
+    "last_verified_shape": {
+      "channels": 18,
+      "output_width": 12,
+      "zero_mode": 0,
+      "input_offset": 16
+    },
+    "started_utc": "2026-11-17T08:34:30.374670+00:00",
+    "elapsed_seconds": 450.0020705969655,
+    "complete_region": "channels=1..17; output_width=1..17; zero_mode in [0, 1]; input_offset in [0, 16]",
+    "stopped_shape": {
+      "channels": 18,
+      "output_width": 12,
+      "zero_mode": 1,
+      "input_offset": 0
+    },
+    "stopped_level": 18,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.015037758043035865,
+      "returncode": -9,
+      "method": null,
+      "events": [],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "channels": 18,
+        "output_width": 12,
+        "zero_mode": 1,
+        "input_offset": 0
+      },
+      "level": 18,
+      "elapsed_seconds": 450.001985010982
+    },
+    "probes": {
+      "planned": 4,
+      "in_box": 4,
+      "verified": [],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 1270,
+      "reference": {
+        "lines_executed": 44,
+        "lines_instrumented": 44,
+        "branch_outcomes_covered": 4,
+        "branch_outcomes": 4,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 67,
+        "lines_instrumented": 67,
+        "branch_outcomes_covered": 6,
+        "branch_outcomes": 6,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-17T08:42:00.756691+00:00"
+  }
+]

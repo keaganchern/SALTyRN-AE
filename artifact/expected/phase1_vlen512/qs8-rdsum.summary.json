@@ -1,0 +1,273 @@
+[
+  {
+    "kernel": "qs8-rdsum",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 4620,
+    "completed_level": 67,
+    "attempted_shapes": 4621,
+    "methods": {
+      "int": 75,
+      "split": 4582
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "rows",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "channels",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "input_stride": "channels"
+      },
+      "preconditions": [
+        "rows != 0",
+        "channels != 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "rows: size (asserted nonzero), step 1",
+        "channels: size (asserted nonzero), step 1"
+      ]
+    },
+    "induction": {
+      "applies": false,
+      "reason": "a derived stride depends on channels"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen512/qs8-rdsum.c",
+    "last_verified_shape": {
+      "rows": 68,
+      "channels": 64
+    },
+    "started_utc": "2026-11-17T06:19:59.058031+00:00",
+    "elapsed_seconds": 461.242864002008,
+    "complete_region": "rows=1..67; channels=1..67",
+    "stopped_shape": {
+      "rows": 68,
+      "channels": 65
+    },
+    "stopped_level": 68,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.22578427498228848,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "MEMORY_WARNING",
+          "dims": "68,65",
+          "config": "symbolic",
+          "violations": [
+            {
+              "buffer": "zero",
+              "access": "read",
+              "lo": 0,
+              "hi": 64,
+              "allowed_lo": 0,
+              "allowed_hi": 31
+            }
+          ]
+        },
+        {
+          "status": "SOLVING",
+          "dims": "68,65",
+          "config": "symbolic"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "rows": 68,
+        "channels": 65
+      },
+      "level": 68,
+      "elapsed_seconds": 450.003500271996
+    },
+    "probes": {
+      "planned": 47,
+      "in_box": 10,
+      "verified": [
+        {
+          "rows": 252,
+          "channels": 1
+        },
+        {
+          "rows": 252,
+          "channels": 2
+        },
+        {
+          "rows": 253,
+          "channels": 1
+        },
+        {
+          "rows": 253,
+          "channels": 2
+        },
+        {
+          "rows": 254,
+          "channels": 1
+        },
+        {
+          "channels": 3,
+          "rows": 252
+        },
+        {
+          "rows": 254,
+          "channels": 2
+        },
+        {
+          "channels": 3,
+          "rows": 253
+        },
+        {
+          "channels": 4,
+          "rows": 252
+        },
+        {
+          "channels": 4,
+          "rows": 253
+        },
+        {
+          "channels": 5,
+          "rows": 252
+        },
+        {
+          "channels": 5,
+          "rows": 253
+        },
+        {
+          "channels": 8,
+          "rows": 252
+        },
+        {
+          "channels": 8,
+          "rows": 253
+        },
+        {
+          "channels": 9,
+          "rows": 252
+        },
+        {
+          "channels": 9,
+          "rows": 253
+        },
+        {
+          "rows": 252,
+          "channels": 16
+        },
+        {
+          "rows": 253,
+          "channels": 16
+        },
+        {
+          "channels": 17,
+          "rows": 252
+        },
+        {
+          "rows": 254,
+          "channels": 16
+        },
+        {
+          "channels": 17,
+          "rows": 253
+        },
+        {
+          "channels": 32,
+          "rows": 252
+        },
+        {
+          "channels": 32,
+          "rows": 253
+        },
+        {
+          "channels": 33,
+          "rows": 252
+        },
+        {
+          "channels": 33,
+          "rows": 253
+        },
+        {
+          "rows": 504,
+          "channels": 1
+        },
+        {
+          "rows": 504,
+          "channels": 2
+        },
+        {
+          "rows": 505,
+          "channels": 1
+        },
+        {
+          "rows": 505,
+          "channels": 2
+        },
+        {
+          "rows": 506,
+          "channels": 1
+        },
+        {
+          "rows": 506,
+          "channels": 2
+        },
+        {
+          "rows": 507,
+          "channels": 1
+        },
+        {
+          "rows": 507,
+          "channels": 2
+        },
+        {
+          "rows": 504,
+          "channels": 16
+        },
+        {
+          "rows": 505,
+          "channels": 16
+        },
+        {
+          "rows": 506,
+          "channels": 16
+        },
+        {
+          "rows": 507,
+          "channels": 16
+        }
+      ],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 4620,
+      "reference": {
+        "lines_executed": 191,
+        "lines_instrumented": 193,
+        "branch_outcomes_covered": 20,
+        "branch_outcomes": 20,
+        "partially_covered_branches": [],
+        "unexecuted_lines": [
+          "inline int32x4_t vld1q_s32(const void* p) { return salt::vld1q_s32(static_cast<const int32_t*>(p)); }",
+          "inline int8x8_t vld1_s8(const void* p) { return salt::vld1_s8(static_cast<const int8_t*>(p)); }"
+        ]
+      },
+      "candidate": {
+        "lines_executed": 71,
+        "lines_instrumented": 71,
+        "branch_outcomes_covered": 10,
+        "branch_outcomes": 10,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-17T06:27:41.146551+00:00"
+  }
+]

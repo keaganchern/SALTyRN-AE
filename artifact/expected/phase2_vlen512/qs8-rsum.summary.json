@@ -1,0 +1,84 @@
+{
+ "qs8-rsum": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/qs8-rsum.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 512,
+  "rvv_vlmax": 128,
+  "param_asserts": 0,
+  "secs": 600,
+  "max_verified": 2830,
+  "methods": [
+   "int"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 2831,
+    "vlen": 512
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 20,
+    "lines_instrumented": 20,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 40,
+    "lines_instrumented": 55,
+    "branch_outcomes_covered": 5,
+    "branch_outcomes": 12,
+    "partially_covered_branches": [
+     {
+      "line": "if (batch > 0) {",
+      "true_taken": true,
+      "false_taken": false
+     },
+     {
+      "line": "for (size_t i = 1; i < 256 && batch > 0; i++) {",
+      "true_taken": true,
+      "false_taken": false
+     },
+     {
+      "line": "while (batch > 0) {",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "for (size_t i = 1; i < 256 && batch > 0; i++) {",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "for (size_t i = 1; i < 256 && batch > 0; i++) {",
+      "true_taken": false,
+      "false_taken": false
+     }
+    ],
+    "unexecuted_lines": [
+     "vl = __riscv_vsetvl_e8m2(batch);",
+     "vt = __riscv_vle8_v_i8m2(input, vl);",
+     "input += vl;",
+     "batch -= vl;",
+     "vacc32 = __riscv_vwadd_wv_i32m8(vacc32, vacc16, vlmax);",
+     "vacc16 = __riscv_vmv_v_x_i16m4(0, vlmax);",
+     "vacc16 = __riscv_vwadd_wv_i16m4_tu(vacc16, vacc16, vt, vl);",
+     "for (size_t i = 1; i < 256 && batch > 0; i++) {",
+     "vl = __riscv_vsetvl_e8m2(batch);",
+     "vt = __riscv_vle8_v_i8m2(input, vl);",
+     "vacc16 = __riscv_vwadd_wv_i16m4_tu(vacc16, vacc16, vt, vl);",
+     "input += vl;",
+     "batch -= vl;",
+     "}",
+     "}"
+    ]
+   }
+  }
+ }
+}

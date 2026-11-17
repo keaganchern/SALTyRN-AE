@@ -1,0 +1,125 @@
+{
+ "qs8-vmul-minmax-fp32": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-AE/ae-out/verify512-p2/rvv2/qs8-vmul-minmax-fp32.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 512,
+  "rvv_vlmax": 128,
+  "param_asserts": 12,
+  "secs": 605,
+  "max_verified": 181,
+  "methods": [
+   "split",
+   "uf"
+  ],
+  "max_paths": 18,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 182,
+    "vlen": 512
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 34,
+    "lines_instrumented": 34,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 406,
+    "lines_instrumented": 574,
+    "branch_outcomes_covered": 62,
+    "branch_outcomes": 70,
+    "partially_covered_branches": [
+     {
+      "line": "while (batch > 0) {",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "while (batch > 0) {",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "while (batch > 0) {",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "while (batch > 0) {",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "while (batch > 0) {",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "while (batch > 0) {",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "while (batch > 0) {",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "while (batch > 0) {",
+      "true_taken": false,
+      "false_taken": true
+     }
+    ],
+    "unexecuted_lines": [
+     "size_t next_next_vl = __riscv_vsetvl_e8m2(batch);",
+     "vint8m2_t va_next_next = __riscv_vle8_v_i8m2(input_a, next_next_vl);",
+     "vint8m2_t vb_next_next = __riscv_vle8_v_i8m2(input_b, next_next_vl);",
+     "const vint16m4_t vacc16_new = __riscv_vwmul_vv_i16m4(va, vb, vl);",
+     "vfloat32m8_t vfpacc_new = __riscv_vfwcvt_f_x_v_f32m8(vacc16_new, vl);",
+     "vfpacc_new = __riscv_vfmul_vf_f32m8(vfpacc_new, scale, vl);",
+     "const vint16m4_t vacc16_out_new = __riscv_vfncvt_x_f_w_i16m4_rm(vfpacc_new, __RISCV_FRM_RNE, vl);",
+     "vint8m2_t vout_new = __riscv_vnclip_wx_i8m2(vacc16_out_new, 0, __RISCV_VXRM_RNU, vl);",
+     "__riscv_vse8_v_i8m2(output, vout_store, vl_store);",
+     "output += vl_store;",
+     "input_a += next_next_vl;",
+     "input_b += next_next_vl;",
+     "batch -= next_next_vl;",
+     "vout_store = vout_new;",
+     "vl_store = vl;",
+     "va = va_next_next;",
+     "vb = vb_next_next;",
+     "vl = next_next_vl;",
+     "}",
+     "size_t next_next_vl = __riscv_vsetvl_e8m2(batch);",
+     "vint8m2_t va_next_next = __riscv_vle8_v_i8m2(input_a, next_next_vl);",
+     "vint8m2_t vb_next_next = __riscv_vle8_v_i8m2(input_b, next_next_vl);",
+     "const vint16m4_t vacc16_new = __riscv_vwmul_vv_i16m4(va, vb, vl);",
+     "vfloat32m8_t vfpacc_new = __riscv_vfwcvt_f_x_v_f32m8(vacc16_new, vl);",
+     "vfpacc_new = __riscv_vfmul_vf_f32m8(vfpacc_new, scale, vl);",
+     "const vint16m4_t vacc16_out_new = __riscv_vfncvt_x_f_w_i16m4_rm(vfpacc_new, __RISCV_FRM_RNE, vl);",
+     "vint8m2_t vout_new = __riscv_vnclip_wx_i8m2(vacc16_out_new, 0, __RISCV_VXRM_RNU, vl);",
+     "vout_new = __riscv_vmax_vx_i8m2(vout_new, output_min, vl);",
+     "vout_new = __riscv_vmin_vx_i8m2(vout_new, output_max, vl);",
+     "__riscv_vse8_v_i8m2(output, vout_store, vl_store);",
+     "output += vl_store;",
+     "input_a += next_next_vl;",
+     "input_b += next_next_vl;",
+     "batch -= next_next_vl;",
+     "vout_store = vout_new;",
+     "vl_store = vl;",
+     "va = va_next_next;",
+     "vb = vb_next_next;",
+     "vl = next_next_vl;",
+     "}"
+    ]
+   }
+  }
+ }
+}

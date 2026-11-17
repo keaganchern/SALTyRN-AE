@@ -1,0 +1,43 @@
+{
+ "qs8-vlrelu": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-AE/ae-out/verify128-opt/final/qs8-vlrelu.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 128,
+  "rvv_vlmax": 64,
+  "param_asserts": 9,
+  "secs": 603,
+  "max_verified": 442,
+  "methods": [
+   "split",
+   "uf"
+  ],
+  "max_paths": 4,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 443,
+    "vlen": 128
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 28,
+    "lines_instrumented": 28,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 128,
+    "lines_instrumented": 128,
+    "branch_outcomes_covered": 18,
+    "branch_outcomes": 18,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

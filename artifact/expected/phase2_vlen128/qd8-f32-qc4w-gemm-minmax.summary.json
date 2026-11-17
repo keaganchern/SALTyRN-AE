@@ -1,0 +1,147 @@
+[
+ {
+  "kernel": "qd8-f32-qc4w-gemm-minmax",
+  "vlen": 128,
+  "budget_seconds": 600.0,
+  "status": "TIMEOUT",
+  "verified_shapes": 349,
+  "completed_level": 18,
+  "attempted_shapes": 350,
+  "methods": {
+   "uf": 19,
+   "split": 334
+  },
+  "plan": {
+   "axes": [
+    {
+     "name": "mr",
+     "step": 1,
+     "max_index": 1
+    },
+    {
+     "name": "nc",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "kc",
+     "step": 1,
+     "max_index": null
+    }
+   ],
+   "variants": {},
+   "derived": {
+    "a_stride": "kc",
+    "cm_stride": "256 * sizeof(float)",
+    "cn_stride": "16 * sizeof(float)"
+   },
+   "preconditions": [
+    "mr != 0",
+    "mr <= 1",
+    "nc != 0",
+    "kc != 0",
+    "kc % sizeof(int8_t) == 0"
+   ],
+   "candidate_checks": [],
+   "notes": [
+    "mr: size (asserted nonzero), step 1, at most 1",
+    "nc: size (asserted nonzero), step 1",
+    "kc: size (asserted nonzero), step 1"
+   ]
+  },
+  "induction": {
+   "applies": false,
+   "reason": "state carried across iterations: a0"
+  },
+  "rvv": "ae-out/verify128-md/cand/qd8-f32-qc4w-gemm-minmax.c",
+  "last_verified_shape": {
+   "mr": 1,
+   "nc": 19,
+   "kc": 7
+  },
+  "started_utc": "2026-11-16T20:38:24.658983+00:00",
+  "elapsed_seconds": 471.9314098840114,
+  "complete_region": "mr=1..1; nc=1..18; kc=1..18",
+  "stopped_shape": {
+   "mr": 1,
+   "nc": 19,
+   "kc": 8
+  },
+  "stopped_level": 19,
+  "failure": {
+   "status": "TIMEOUT",
+   "seconds": 1.0617262829910032,
+   "returncode": -9,
+   "method": null,
+   "events": [
+    {
+     "status": "SOLVING",
+     "dims": "1,19,8",
+     "config": "symbolic"
+    }
+   ],
+   "stderr": "",
+   "hard_deadline": true,
+   "shape": {
+    "mr": 1,
+    "nc": 19,
+    "kc": 8
+   },
+   "level": 19,
+   "elapsed_seconds": 450.0052051609964
+  },
+  "probes": {
+   "planned": 15,
+   "in_box": 11,
+   "verified": [
+    {
+     "nc": 34,
+     "mr": 1,
+     "kc": 1
+    },
+    {
+     "nc": 35,
+     "mr": 1,
+     "kc": 1
+    },
+    {
+     "nc": 34,
+     "mr": 1,
+     "kc": 8
+    },
+    {
+     "nc": 35,
+     "mr": 1,
+     "kc": 8
+    }
+   ],
+   "unverified": []
+  },
+  "coverage": {
+   "verified_profiles": 349,
+   "reference": {
+    "lines_executed": 79,
+    "lines_instrumented": 79,
+    "branch_outcomes_covered": 8,
+    "branch_outcomes": 8,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 94,
+    "lines_instrumented": 94,
+    "branch_outcomes_covered": 13,
+    "branch_outcomes": 14,
+    "partially_covered_branches": [
+     {
+      "line": "if (k > 0) {",
+      "true_taken": true,
+      "false_taken": false
+     }
+    ],
+    "unexecuted_lines": []
+   }
+  },
+  "finished_utc": "2026-11-16T20:46:16.804847+00:00"
+ }
+]

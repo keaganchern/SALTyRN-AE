@@ -1,0 +1,43 @@
+{
+ "f32-vmulc": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/f32-vmulc.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 512,
+  "rvv_vlmax": 128,
+  "param_asserts": 0,
+  "secs": 602,
+  "max_verified": 907,
+  "methods": [
+   "split",
+   "uf"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 908,
+    "vlen": 512
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 18,
+    "lines_instrumented": 18,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 26,
+    "lines_instrumented": 26,
+    "branch_outcomes_covered": 4,
+    "branch_outcomes": 4,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

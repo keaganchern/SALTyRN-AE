@@ -1,0 +1,195 @@
+[
+  {
+    "kernel": "qu8-rdsum",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 4469,
+    "completed_level": 66,
+    "attempted_shapes": 4470,
+    "methods": {
+      "int": 71,
+      "split": 4420
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "rows",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "channels",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "input_stride": "channels"
+      },
+      "preconditions": [
+        "rows != 0",
+        "channels != 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "rows: size (asserted nonzero), step 1",
+        "channels: size (asserted nonzero), step 1"
+      ]
+    },
+    "induction": {
+      "applies": false,
+      "reason": "a derived stride depends on channels"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen512/qu8-rdsum.c",
+    "last_verified_shape": {
+      "rows": 67,
+      "channels": 47
+    },
+    "started_utc": "2026-11-17T06:09:11.760556+00:00",
+    "elapsed_seconds": 461.39548819704214,
+    "complete_region": "rows=1..66; channels=1..66",
+    "stopped_shape": {
+      "rows": 67,
+      "channels": 48
+    },
+    "stopped_level": 67,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.11548641603440046,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "67,48",
+          "config": "symbolic"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "rows": 67,
+        "channels": 48
+      },
+      "level": 67,
+      "elapsed_seconds": 450.00294842000585
+    },
+    "probes": {
+      "planned": 34,
+      "in_box": 12,
+      "verified": [
+        {
+          "rows": 252,
+          "channels": 1
+        },
+        {
+          "rows": 252,
+          "channels": 2
+        },
+        {
+          "rows": 253,
+          "channels": 1
+        },
+        {
+          "rows": 253,
+          "channels": 2
+        },
+        {
+          "channels": 3,
+          "rows": 252
+        },
+        {
+          "channels": 4,
+          "rows": 252
+        },
+        {
+          "channels": 5,
+          "rows": 252
+        },
+        {
+          "channels": 8,
+          "rows": 252
+        },
+        {
+          "channels": 9,
+          "rows": 252
+        },
+        {
+          "rows": 252,
+          "channels": 32
+        },
+        {
+          "rows": 253,
+          "channels": 32
+        },
+        {
+          "channels": 33,
+          "rows": 252
+        },
+        {
+          "channels": 16,
+          "rows": 252
+        },
+        {
+          "channels": 17,
+          "rows": 252
+        },
+        {
+          "channels": 64,
+          "rows": 252
+        },
+        {
+          "channels": 65,
+          "rows": 252
+        },
+        {
+          "rows": 504,
+          "channels": 1
+        },
+        {
+          "rows": 504,
+          "channels": 2
+        },
+        {
+          "rows": 505,
+          "channels": 1
+        },
+        {
+          "rows": 505,
+          "channels": 2
+        },
+        {
+          "rows": 504,
+          "channels": 32
+        },
+        {
+          "rows": 505,
+          "channels": 32
+        }
+      ],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 4469,
+      "reference": {
+        "lines_executed": 244,
+        "lines_instrumented": 244,
+        "branch_outcomes_covered": 20,
+        "branch_outcomes": 20,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 72,
+        "lines_instrumented": 72,
+        "branch_outcomes_covered": 8,
+        "branch_outcomes": 8,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-17T06:16:53.799747+00:00"
+  }
+]

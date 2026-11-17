@@ -1,0 +1,181 @@
+[
+  {
+    "kernel": "f32-dwconv2d-chw",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 59,
+    "completed_level": 7,
+    "attempted_shapes": 60,
+    "methods": {
+      "smt": 1,
+      "uf": 67
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "input_height",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "input_width",
+          "step": 4,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "padding_top": "1"
+      },
+      "preconditions": [
+        "input_height != 0",
+        "input_width != 0",
+        "input_width % sizeof(float) == 0",
+        "padding_top == 1"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "input_height: size (asserted nonzero), step 1",
+        "input_width: size (asserted nonzero), step 4"
+      ]
+    },
+    "induction": {
+      "applies": false,
+      "reason": "output_height is not decremented by vl"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-AE/ae-out/phase1-resweep/vlen512/rvv/f32-dwconv2d-chw.c",
+    "last_verified_shape": {
+      "input_height": 8,
+      "input_width": 12
+    },
+    "started_utc": "2026-11-15T03:18:01.401165+00:00",
+    "elapsed_seconds": 569.3455559620052,
+    "complete_region": "input_height=1..7; input_width=1..7 (x4 bytes)",
+    "stopped_shape": {
+      "input_height": 8,
+      "input_width": 16
+    },
+    "stopped_level": 8,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 16.926013882039115,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "8,16",
+          "config": "symbolic+sym-clamp"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "input_height": 8,
+        "input_width": 16
+      },
+      "level": 8,
+      "elapsed_seconds": 450.0484467209899
+    },
+    "probes": {
+      "planned": 26,
+      "in_box": 16,
+      "verified": [
+        {
+          "input_height": 8,
+          "input_width": 4
+        },
+        {
+          "input_height": 9,
+          "input_width": 4
+        },
+        {
+          "input_width": 40,
+          "input_height": 1
+        },
+        {
+          "input_width": 40,
+          "input_height": 2
+        },
+        {
+          "input_width": 44,
+          "input_height": 1
+        },
+        {
+          "input_height": 8,
+          "input_width": 20
+        },
+        {
+          "input_width": 44,
+          "input_height": 2
+        },
+        {
+          "input_height": 9,
+          "input_width": 20
+        },
+        {
+          "input_width": 40,
+          "input_height": 4
+        }
+      ],
+      "unverified": [
+        {
+          "shape": {
+            "input_width": 44,
+            "input_height": 4
+          },
+          "status": "TIMEOUT"
+        }
+      ]
+    },
+    "coverage": {
+      "verified_profiles": 59,
+      "reference": {
+        "lines_executed": 200,
+        "lines_instrumented": 201,
+        "branch_outcomes_covered": 8,
+        "branch_outcomes": 8,
+        "partially_covered_branches": [],
+        "unexecuted_lines": [
+          "inline float32x4_t vld1q_f32(const void* p) { return salt::vld1q_f32(static_cast<const float*>(p)); }"
+        ]
+      },
+      "candidate": {
+        "lines_executed": 143,
+        "lines_instrumented": 143,
+        "branch_outcomes_covered": 11,
+        "branch_outcomes": 16,
+        "partially_covered_branches": [
+          {
+            "line": "const float next0 = (w > vl) ? cur_i0[vl] : 0.0f;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float next1 = (w > vl) ? cur_i1[vl] : 0.0f;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float next2 = (w > vl) ? cur_i2[vl] : 0.0f;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float next3 = (w > vl) ? cur_i3[vl] : 0.0f;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float next4 = (w > vl) ? cur_i4[vl] : 0.0f;",
+            "true_taken": false,
+            "false_taken": true
+          }
+        ],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-15T03:27:31.048944+00:00"
+  }
+]

@@ -1,0 +1,133 @@
+[
+ {
+  "kernel": "qu8-rdsum",
+  "vlen": 128,
+  "budget_seconds": 600.0,
+  "status": "TIMEOUT",
+  "verified_shapes": 4029,
+  "completed_level": 63,
+  "attempted_shapes": 4030,
+  "methods": {
+   "int": 71,
+   "split": 3966
+  },
+  "plan": {
+   "axes": [
+    {
+     "name": "rows",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "channels",
+     "step": 1,
+     "max_index": null
+    }
+   ],
+   "variants": {},
+   "derived": {
+    "input_stride": "channels"
+   },
+   "preconditions": [
+    "rows != 0",
+    "channels != 0"
+   ],
+   "candidate_checks": [],
+   "notes": [
+    "rows: size (asserted nonzero), step 1",
+    "channels: size (asserted nonzero), step 1"
+   ]
+  },
+  "induction": {
+   "applies": false,
+   "reason": "a derived stride depends on channels"
+  },
+  "rvv": "ae-out/verify128-md/cand/qu8-rdsum.c",
+  "last_verified_shape": {
+   "rows": 60,
+   "channels": 64
+  },
+  "started_utc": "2026-11-16T20:18:51.106406+00:00",
+  "elapsed_seconds": 450.6556022829609,
+  "complete_region": "rows=1..63; channels=1..63",
+  "stopped_shape": {
+   "rows": 61,
+   "channels": 64
+  },
+  "stopped_level": 64,
+  "failure": {
+   "status": "TIMEOUT",
+   "seconds": 0.027449541026726365,
+   "returncode": -9,
+   "method": null,
+   "events": [],
+   "stderr": "",
+   "hard_deadline": true,
+   "shape": {
+    "rows": 61,
+    "channels": 64
+   },
+   "level": 64,
+   "elapsed_seconds": 450.00237448496046
+  },
+  "probes": {
+   "planned": 8,
+   "in_box": 0,
+   "verified": [
+    {
+     "rows": 252,
+     "channels": 1
+    },
+    {
+     "rows": 253,
+     "channels": 1
+    },
+    {
+     "rows": 254,
+     "channels": 1
+    },
+    {
+     "rows": 255,
+     "channels": 1
+    },
+    {
+     "rows": 504,
+     "channels": 1
+    },
+    {
+     "rows": 505,
+     "channels": 1
+    },
+    {
+     "rows": 508,
+     "channels": 1
+    },
+    {
+     "rows": 509,
+     "channels": 1
+    }
+   ],
+   "unverified": []
+  },
+  "coverage": {
+   "verified_profiles": 4029,
+   "reference": {
+    "lines_executed": 72,
+    "lines_instrumented": 72,
+    "branch_outcomes_covered": 10,
+    "branch_outcomes": 10,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 62,
+    "lines_instrumented": 62,
+    "branch_outcomes_covered": 12,
+    "branch_outcomes": 12,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  },
+  "finished_utc": "2026-11-16T20:26:21.944699+00:00"
+ }
+]

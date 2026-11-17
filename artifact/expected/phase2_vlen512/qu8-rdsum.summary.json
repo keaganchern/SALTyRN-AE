@@ -1,0 +1,147 @@
+[
+  {
+    "kernel": "qu8-rdsum",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 213,
+    "completed_level": 14,
+    "attempted_shapes": 214,
+    "methods": {
+      "int": 47,
+      "split": 176
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "rows",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "channels",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "input_stride": "channels"
+      },
+      "preconditions": [
+        "rows != 0",
+        "channels != 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "rows: size (asserted nonzero), step 1",
+        "channels: size (asserted nonzero), step 1"
+      ]
+    },
+    "induction": {
+      "applies": false,
+      "reason": "a derived stride depends on channels"
+    },
+    "rvv": "ae-out/p2md512/qu8-rdsum.c",
+    "last_verified_shape": {
+      "rows": 15,
+      "channels": 3
+    },
+    "started_utc": "2026-11-16T07:57:14.470340+00:00",
+    "elapsed_seconds": 450.4971095249639,
+    "complete_region": "rows=1..14; channels=1..14",
+    "stopped_shape": {
+      "rows": 15,
+      "channels": 4
+    },
+    "stopped_level": 15,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.6312100180075504,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "15,4",
+          "config": "symbolic"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "rows": 15,
+        "channels": 4
+      },
+      "level": 15,
+      "elapsed_seconds": 450.0033422599663
+    },
+    "probes": {
+      "planned": 12,
+      "in_box": 2,
+      "verified": [
+        {
+          "rows": 252,
+          "channels": 1
+        },
+        {
+          "rows": 253,
+          "channels": 1
+        },
+        {
+          "rows": 256,
+          "channels": 1
+        },
+        {
+          "rows": 257,
+          "channels": 1
+        },
+        {
+          "rows": 16,
+          "channels": 1
+        },
+        {
+          "rows": 17,
+          "channels": 1
+        },
+        {
+          "rows": 504,
+          "channels": 1
+        },
+        {
+          "rows": 505,
+          "channels": 1
+        },
+        {
+          "rows": 512,
+          "channels": 1
+        },
+        {
+          "rows": 513,
+          "channels": 1
+        }
+      ],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 213,
+      "reference": {
+        "lines_executed": 72,
+        "lines_instrumented": 72,
+        "branch_outcomes_covered": 8,
+        "branch_outcomes": 8,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 64,
+        "lines_instrumented": 64,
+        "branch_outcomes_covered": 10,
+        "branch_outcomes": 10,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-16T08:04:45.329160+00:00"
+  }
+]

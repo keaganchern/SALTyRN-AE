@@ -1,0 +1,183 @@
+[
+ {
+  "kernel": "f32-dwconv-minmax",
+  "vlen": 128,
+  "budget_seconds": 600.0,
+  "status": "TIMEOUT",
+  "verified_shapes": 1286,
+  "completed_level": 17,
+  "attempted_shapes": 1287,
+  "methods": {
+   "uf": 4,
+   "split": 1282
+  },
+  "plan": {
+   "axes": [
+    {
+     "name": "channels",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "output_width",
+     "step": 1,
+     "max_index": null
+    }
+   ],
+   "variants": {
+    "zero_mode": [
+     0,
+     1
+    ],
+    "input_offset": [
+     0,
+     16
+    ]
+   },
+   "derived": {
+    "input_stride": "3 * sizeof(void*)",
+    "output_increment": "0",
+    "input_pixel_stride": "0"
+   },
+   "preconditions": [
+    "channels != 0",
+    "output_width != 0"
+   ],
+   "candidate_checks": [],
+   "notes": [
+    "channels: size (asserted nonzero), step 1",
+    "output_width: size (asserted nonzero), step 1",
+    "input_offset: variant [0, 16]"
+   ]
+  },
+  "induction": {
+   "applies": false,
+   "reason": "outer for loop not over a size"
+  },
+  "rvv": "ae-out/verify128-md/cand/f32-dwconv-minmax.c",
+  "last_verified_shape": {
+   "channels": 18,
+   "output_width": 16,
+   "zero_mode": 0,
+   "input_offset": 16
+  },
+  "started_utc": "2026-11-16T20:47:18.405250+00:00",
+  "elapsed_seconds": 450.0034652229515,
+  "complete_region": "channels=1..17; output_width=1..17; zero_mode in [0, 1]; input_offset in [0, 16]",
+  "stopped_shape": {
+   "channels": 18,
+   "output_width": 16,
+   "zero_mode": 1,
+   "input_offset": 0
+  },
+  "stopped_level": 18,
+  "failure": {
+   "status": "TIMEOUT",
+   "seconds": 0.534327186003793,
+   "returncode": -9,
+   "method": null,
+   "events": [
+    {
+     "status": "SOLVING",
+     "dims": "18,16,1,0",
+     "config": "symbolic+sym-clamp"
+    }
+   ],
+   "stderr": "",
+   "hard_deadline": true,
+   "shape": {
+    "channels": 18,
+    "output_width": 16,
+    "zero_mode": 1,
+    "input_offset": 0
+   },
+   "level": 18,
+   "elapsed_seconds": 450.003396568005
+  },
+  "probes": {
+   "planned": 4,
+   "in_box": 4,
+   "verified": [],
+   "unverified": []
+  },
+  "coverage": {
+   "verified_profiles": 1286,
+   "reference": {
+    "lines_executed": 44,
+    "lines_instrumented": 44,
+    "branch_outcomes_covered": 4,
+    "branch_outcomes": 4,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 59,
+    "lines_instrumented": 81,
+    "branch_outcomes_covered": 21,
+    "branch_outcomes": 34,
+    "partially_covered_branches": [
+     {
+      "line": "for (size_t c = 0; c < channels; ) {",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "while (processed < vl8) {",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "for (size_t i = 0; i < vl4; i++) *d++ = b8[processed + i];",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "for (size_t i = 0; i < vl4; i++) *d++ = w0_8[processed + i];",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "for (size_t i = 0; i < vl4; i++) *d++ = w1_8[processed + i];",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "for (size_t i = 0; i < vl4; i++) *d++ = w2_8[processed + i];",
+      "true_taken": false,
+      "false_taken": false
+     },
+     {
+      "line": "if (i1 != zero) i1 = (const float*) ((uintptr_t) i1 + current_input_offset);",
+      "true_taken": true,
+      "false_taken": false
+     }
+    ],
+    "unexecuted_lines": [
+     "void pack_weights(const void* src, size_t channels, void* dst, size_t dst_cap) {",
+     "const float* s = (const float*)src;",
+     "float* d = (float*)dst;",
+     "for (size_t c = 0; c < channels; ) {",
+     "size_t vl8 = __riscv_vsetvl_e32m8(channels - c);",
+     "const float* b8 = s;",
+     "const float* w0_8 = s + vl8;",
+     "const float* w1_8 = s + 2 * vl8;",
+     "const float* w2_8 = s + 3 * vl8;",
+     "s += 4 * vl8;",
+     "size_t processed = 0;",
+     "while (processed < vl8) {",
+     "size_t vl4 = __riscv_vsetvl_e32m4(vl8 - processed);",
+     "for (size_t i = 0; i < vl4; i++) *d++ = b8[processed + i];",
+     "for (size_t i = 0; i < vl4; i++) *d++ = w0_8[processed + i];",
+     "for (size_t i = 0; i < vl4; i++) *d++ = w1_8[processed + i];",
+     "for (size_t i = 0; i < vl4; i++) *d++ = w2_8[processed + i];",
+     "processed += vl4;",
+     "}",
+     "c += vl8;",
+     "}",
+     "}"
+    ]
+   }
+  },
+  "finished_utc": "2026-11-16T20:54:48.587072+00:00"
+ }
+]

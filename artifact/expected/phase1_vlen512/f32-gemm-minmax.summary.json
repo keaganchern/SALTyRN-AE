@@ -1,0 +1,378 @@
+[
+  {
+    "kernel": "f32-gemm-minmax",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 131,
+    "completed_level": 5,
+    "attempted_shapes": 132,
+    "methods": {
+      "smt": 6,
+      "uf": 161,
+      "ac": 1
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "mr",
+          "step": 1,
+          "max_index": 4
+        },
+        {
+          "name": "nc",
+          "step": 1,
+          "max_index": 16
+        },
+        {
+          "name": "kc",
+          "step": 4,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "a_stride": "kc",
+        "cm_stride": "256 * sizeof(float)",
+        "cn_stride": "8 * sizeof(float)"
+      },
+      "preconditions": [
+        "mr != 0",
+        "mr <= 4",
+        "nc != 0",
+        "kc != 0",
+        "kc % sizeof(float) == 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "mr: size (asserted nonzero), step 1, at most 4",
+        "nc: size (asserted nonzero), step 1",
+        "kc: size (asserted nonzero), step 4"
+      ]
+    },
+    "induction": {
+      "applies": true,
+      "dim": "nc",
+      "stride": 8,
+      "cap": 16,
+      "assumption": "none: the reference's outer loop meets the same premise"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase1/vlen512/f32-gemm-minmax.c",
+    "last_verified_shape": {
+      "mr": 3,
+      "nc": 6,
+      "kc": 16
+    },
+    "started_utc": "2026-11-17T04:44:34.253503+00:00",
+    "elapsed_seconds": 599.9874094789848,
+    "complete_region": "mr=1..4; nc=1..5; kc=1..5 (x4 bytes)",
+    "stopped_shape": {
+      "mr": 3,
+      "nc": 6,
+      "kc": 20
+    },
+    "stopped_level": 6,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 5.647417864005547,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "3,6,20",
+          "config": "symbolic+sym-clamp"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "mr": 3,
+        "nc": 6,
+        "kc": 20
+      },
+      "level": 6,
+      "elapsed_seconds": 450.0191291840165
+    },
+    "probes": {
+      "planned": 107,
+      "in_box": 63,
+      "verified": [
+        {
+          "nc": 8,
+          "mr": 1,
+          "kc": 4
+        },
+        {
+          "mr": 2,
+          "nc": 8,
+          "kc": 4
+        },
+        {
+          "nc": 8,
+          "mr": 1,
+          "kc": 8
+        },
+        {
+          "nc": 9,
+          "mr": 1,
+          "kc": 4
+        },
+        {
+          "mr": 2,
+          "nc": 8,
+          "kc": 8
+        },
+        {
+          "mr": 3,
+          "nc": 8,
+          "kc": 4
+        },
+        {
+          "nc": 9,
+          "mr": 1,
+          "kc": 8
+        },
+        {
+          "nc": 9,
+          "mr": 2,
+          "kc": 4
+        },
+        {
+          "kc": 12,
+          "mr": 1,
+          "nc": 8
+        },
+        {
+          "mr": 3,
+          "nc": 8,
+          "kc": 8
+        },
+        {
+          "mr": 4,
+          "nc": 8,
+          "kc": 4
+        },
+        {
+          "nc": 9,
+          "mr": 2,
+          "kc": 8
+        },
+        {
+          "nc": 9,
+          "mr": 3,
+          "kc": 4
+        },
+        {
+          "kc": 12,
+          "mr": 2,
+          "nc": 8
+        },
+        {
+          "mr": 4,
+          "nc": 8,
+          "kc": 8
+        },
+        {
+          "nc": 9,
+          "mr": 3,
+          "kc": 8
+        },
+        {
+          "nc": 9,
+          "mr": 4,
+          "kc": 4
+        },
+        {
+          "kc": 12,
+          "mr": 3,
+          "nc": 8
+        },
+        {
+          "nc": 9,
+          "mr": 4,
+          "kc": 8
+        },
+        {
+          "kc": 12,
+          "mr": 4,
+          "nc": 8
+        },
+        {
+          "kc": 16,
+          "mr": 1,
+          "nc": 8
+        },
+        {
+          "kc": 16,
+          "mr": 2,
+          "nc": 8
+        },
+        {
+          "kc": 20,
+          "mr": 1,
+          "nc": 8
+        },
+        {
+          "kc": 16,
+          "mr": 3,
+          "nc": 8
+        },
+        {
+          "kc": 20,
+          "mr": 2,
+          "nc": 8
+        },
+        {
+          "kc": 16,
+          "mr": 4,
+          "nc": 8
+        },
+        {
+          "kc": 20,
+          "mr": 3,
+          "nc": 8
+        },
+        {
+          "kc": 20,
+          "mr": 4,
+          "nc": 8
+        },
+        {
+          "nc": 16,
+          "mr": 1,
+          "kc": 4
+        },
+        {
+          "nc": 16,
+          "mr": 1,
+          "kc": 8
+        },
+        {
+          "nc": 16,
+          "mr": 2,
+          "kc": 4
+        },
+        {
+          "nc": 17,
+          "mr": 1,
+          "kc": 4
+        },
+        {
+          "nc": 16,
+          "mr": 2,
+          "kc": 8
+        },
+        {
+          "nc": 16,
+          "mr": 3,
+          "kc": 4
+        },
+        {
+          "nc": 17,
+          "mr": 1,
+          "kc": 8
+        },
+        {
+          "nc": 17,
+          "mr": 2,
+          "kc": 4
+        },
+        {
+          "nc": 16,
+          "mr": 3,
+          "kc": 8
+        }
+      ],
+      "unverified": [
+        {
+          "shape": {
+            "nc": 16,
+            "mr": 4,
+            "kc": 4
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "nc": 17,
+            "mr": 2,
+            "kc": 8
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "nc": 17,
+            "mr": 3,
+            "kc": 4
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "nc": 16,
+            "mr": 4,
+            "kc": 8
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "nc": 17,
+            "mr": 3,
+            "kc": 8
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "nc": 17,
+            "mr": 4,
+            "kc": 4
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "nc": 17,
+            "mr": 4,
+            "kc": 8
+          },
+          "status": "NOT_RUN"
+        }
+      ]
+    },
+    "coverage": {
+      "verified_profiles": 131,
+      "reference": {
+        "lines_executed": 160,
+        "lines_instrumented": 161,
+        "branch_outcomes_covered": 10,
+        "branch_outcomes": 10,
+        "partially_covered_branches": [],
+        "unexecuted_lines": [
+          "inline float32x4_t vld1q_f32(const void* p) { return salt::vld1q_f32(static_cast<const float*>(p)); }"
+        ]
+      },
+      "candidate": {
+        "lines_executed": 108,
+        "lines_instrumented": 116,
+        "branch_outcomes_covered": 6,
+        "branch_outcomes": 6,
+        "partially_covered_branches": [],
+        "unexecuted_lines": [
+          "vacc0 = __riscv_vfmerge_vfm_f32m2(vacc0, vmax, mask0, vl);",
+          "vacc1 = __riscv_vfmerge_vfm_f32m2(vacc1, vmax, mask1, vl);",
+          "vacc2 = __riscv_vfmerge_vfm_f32m2(vacc2, vmax, mask2, vl);",
+          "vacc3 = __riscv_vfmerge_vfm_f32m2(vacc3, vmax, mask3, vl);",
+          "vacc0 = __riscv_vfmerge_vfm_f32m2(vacc0, vmin, mask0, vl);",
+          "vacc1 = __riscv_vfmerge_vfm_f32m2(vacc1, vmin, mask1, vl);",
+          "vacc2 = __riscv_vfmerge_vfm_f32m2(vacc2, vmin, mask2, vl);",
+          "vacc3 = __riscv_vfmerge_vfm_f32m2(vacc3, vmin, mask3, vl);"
+        ]
+      }
+    },
+    "finished_utc": "2026-11-17T04:54:34.953067+00:00"
+  }
+]

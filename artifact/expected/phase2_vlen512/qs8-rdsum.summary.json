@@ -1,0 +1,151 @@
+[
+  {
+    "kernel": "qs8-rdsum",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 4945,
+    "completed_level": 70,
+    "attempted_shapes": 4946,
+    "methods": {
+      "int": 81,
+      "split": 4875
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "rows",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "channels",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "input_stride": "channels"
+      },
+      "preconditions": [
+        "rows != 0",
+        "channels != 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "rows: size (asserted nonzero), step 1",
+        "channels: size (asserted nonzero), step 1"
+      ]
+    },
+    "induction": {
+      "applies": false,
+      "reason": "a derived stride depends on channels"
+    },
+    "rvv": "ae-out/p2md512/qs8-rdsum.c",
+    "last_verified_shape": {
+      "rows": 45,
+      "channels": 71
+    },
+    "started_utc": "2026-11-16T08:09:31.732633+00:00",
+    "elapsed_seconds": 450.6660368620069,
+    "complete_region": "rows=1..70; channels=1..70",
+    "stopped_shape": {
+      "rows": 46,
+      "channels": 71
+    },
+    "stopped_level": 71,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.1427637810120359,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "46,71",
+          "config": "symbolic"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "rows": 46,
+        "channels": 71
+      },
+      "level": 71,
+      "elapsed_seconds": 450.0030484389863
+    },
+    "probes": {
+      "planned": 11,
+      "in_box": 0,
+      "verified": [
+        {
+          "rows": 240,
+          "channels": 1
+        },
+        {
+          "rows": 241,
+          "channels": 1
+        },
+        {
+          "rows": 252,
+          "channels": 1
+        },
+        {
+          "rows": 253,
+          "channels": 1
+        },
+        {
+          "rows": 254,
+          "channels": 1
+        },
+        {
+          "rows": 480,
+          "channels": 1
+        },
+        {
+          "rows": 481,
+          "channels": 1
+        },
+        {
+          "rows": 504,
+          "channels": 1
+        },
+        {
+          "rows": 505,
+          "channels": 1
+        },
+        {
+          "rows": 506,
+          "channels": 1
+        },
+        {
+          "rows": 507,
+          "channels": 1
+        }
+      ],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 4945,
+      "reference": {
+        "lines_executed": 71,
+        "lines_instrumented": 71,
+        "branch_outcomes_covered": 10,
+        "branch_outcomes": 10,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 44,
+        "lines_instrumented": 44,
+        "branch_outcomes_covered": 10,
+        "branch_outcomes": 10,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-16T08:17:02.825916+00:00"
+  }
+]

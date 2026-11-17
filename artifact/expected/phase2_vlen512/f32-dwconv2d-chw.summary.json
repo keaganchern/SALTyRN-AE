@@ -1,0 +1,188 @@
+[
+  {
+    "kernel": "f32-dwconv2d-chw",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 68,
+    "completed_level": 8,
+    "attempted_shapes": 69,
+    "methods": {
+      "smt": 1,
+      "uf": 68
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "input_height",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "input_width",
+          "step": 4,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "padding_top": "1"
+      },
+      "preconditions": [
+        "input_height != 0",
+        "input_width != 0",
+        "input_width % sizeof(float) == 0",
+        "padding_top == 1"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "input_height: size (asserted nonzero), step 1",
+        "input_width: size (asserted nonzero), step 4"
+      ]
+    },
+    "induction": {
+      "applies": false,
+      "reason": "outer for loop not over a size"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/f32-dwconv2d-chw.c",
+    "last_verified_shape": {
+      "input_height": 4,
+      "input_width": 36
+    },
+    "started_utc": "2026-11-17T08:42:18.085833+00:00",
+    "elapsed_seconds": 454.7651069340063,
+    "complete_region": "input_height=1..8; input_width=1..8 (x4 bytes)",
+    "stopped_shape": {
+      "input_height": 5,
+      "input_width": 36
+    },
+    "stopped_level": 9,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 15.639394737023395,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "5,36",
+          "config": "symbolic+sym-clamp"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "input_height": 5,
+        "input_width": 36
+      },
+      "level": 9,
+      "elapsed_seconds": 450.0483472950291
+    },
+    "probes": {
+      "planned": 8,
+      "in_box": 7,
+      "verified": [
+        {
+          "input_height": 9,
+          "input_width": 4
+        }
+      ],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 68,
+      "reference": {
+        "lines_executed": 143,
+        "lines_instrumented": 143,
+        "branch_outcomes_covered": 11,
+        "branch_outcomes": 16,
+        "partially_covered_branches": [
+          {
+            "line": "const float next0 = (w > vl) ? cur_i0[vl] : 0.0f;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float next1 = (w > vl) ? cur_i1[vl] : 0.0f;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float next2 = (w > vl) ? cur_i2[vl] : 0.0f;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float next3 = (w > vl) ? cur_i3[vl] : 0.0f;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float next4 = (w > vl) ? cur_i4[vl] : 0.0f;",
+            "true_taken": false,
+            "false_taken": true
+          }
+        ],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 113,
+        "lines_instrumented": 120,
+        "branch_outcomes_covered": 20,
+        "branch_outcomes": 28,
+        "partially_covered_branches": [
+          {
+            "line": "float ls1 = (w == 0) ? 0.0f : (input + w)[-1];",
+            "true_taken": true,
+            "false_taken": false
+          },
+          {
+            "line": "float rs1 = (w + vl >= width) ? 0.0f : (input + w)[vl];",
+            "true_taken": true,
+            "false_taken": false
+          },
+          {
+            "line": "ls2 = (w == 0) ? 0.0f : p1[-1];",
+            "true_taken": true,
+            "false_taken": false
+          },
+          {
+            "line": "rs2 = (w + vl >= width) ? 0.0f : p1[vl];",
+            "true_taken": true,
+            "false_taken": false
+          },
+          {
+            "line": "ls3 = (w == 0) ? 0.0f : p3[-1];",
+            "true_taken": true,
+            "false_taken": false
+          },
+          {
+            "line": "rs3 = (w + vl >= width) ? 0.0f : p3[vl];",
+            "true_taken": true,
+            "false_taken": false
+          },
+          {
+            "line": "ls4 = (w == 0) ? 0.0f : p4[-1];",
+            "true_taken": true,
+            "false_taken": false
+          },
+          {
+            "line": "rs4 = (w + vl >= width) ? 0.0f : p4[vl];",
+            "true_taken": true,
+            "false_taken": false
+          }
+        ],
+        "unexecuted_lines": [
+          "{",
+          "const float* src = (const float*)src_v;",
+          "float*       dst = (float*)dst_v;",
+          "for (size_t i = 0; i < src_n; i++) {",
+          "dst[i] = src[i];",
+          "}",
+          "}"
+        ]
+      }
+    },
+    "finished_utc": "2026-11-17T08:49:53.206813+00:00"
+  }
+]

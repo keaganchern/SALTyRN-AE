@@ -1,0 +1,363 @@
+[
+  {
+    "kernel": "f32-maxpool",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 108,
+    "completed_level": 7,
+    "attempted_shapes": 109,
+    "methods": {
+      "simp": 13,
+      "split": 100
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "output_pixels",
+          "step": 1,
+          "max_index": 2
+        },
+        {
+          "name": "kernel_elements",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "channels",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "input_offset": "0",
+        "input_pixel_stride": "0",
+        "input_increment": "kernel_elements * sizeof(void*)",
+        "output_increment": "channels * sizeof(float)"
+      },
+      "preconditions": [
+        "output_pixels != 0",
+        "channels != 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "output_pixels: size (asserted nonzero), step 1",
+        "kernel_elements: size (used as a loop bound), step 1",
+        "channels: size (asserted nonzero), step 1"
+      ]
+    },
+    "induction": {
+      "applies": true,
+      "dim": "output_pixels",
+      "stride": 1,
+      "cap": 2,
+      "assumption": "none: the reference's outer loop meets the same premise"
+    },
+    "rvv": "ae-out/p2md512/f32-maxpool.c",
+    "last_verified_shape": {
+      "output_pixels": 1,
+      "kernel_elements": 8,
+      "channels": 3
+    },
+    "started_utc": "2026-11-16T07:51:30.739642+00:00",
+    "elapsed_seconds": 599.8002685980173,
+    "complete_region": "output_pixels=every value (outer-loop induction, stride 1; base 1..2 verified); kernel_elements=1..7; channels=1..7",
+    "stopped_shape": {
+      "output_pixels": 1,
+      "kernel_elements": 8,
+      "channels": 4
+    },
+    "stopped_level": 8,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 52.63338988396572,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "1,8,4",
+          "config": "symbolic+sym-clamp"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "output_pixels": 1,
+        "kernel_elements": 8,
+        "channels": 4
+      },
+      "level": 8,
+      "elapsed_seconds": 450.0467094249907
+    },
+    "probes": {
+      "planned": 34,
+      "in_box": 6,
+      "verified": [
+        {
+          "kernel_elements": 8,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "kernel_elements": 9,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "kernel_elements": 10,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "kernel_elements": 11,
+          "output_pixels": 1,
+          "channels": 1
+        },
+        {
+          "kernel_elements": 12,
+          "output_pixels": 1,
+          "channels": 1
+        }
+      ],
+      "unverified": [
+        {
+          "shape": {
+            "kernel_elements": 13,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "kernel_elements": 14,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "kernel_elements": 15,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "kernel_elements": 16,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "kernel_elements": 17,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "kernel_elements": 18,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "kernel_elements": 19,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "TIMEOUT"
+        },
+        {
+          "shape": {
+            "kernel_elements": 22,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 23,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 24,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 25,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 26,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 27,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 28,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 29,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 30,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 31,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 32,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 33,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 34,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 35,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 36,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        },
+        {
+          "shape": {
+            "kernel_elements": 37,
+            "output_pixels": 1,
+            "channels": 1
+          },
+          "status": "NOT_RUN"
+        }
+      ]
+    },
+    "coverage": {
+      "verified_profiles": 108,
+      "reference": {
+        "lines_executed": 86,
+        "lines_instrumented": 86,
+        "branch_outcomes_covered": 34,
+        "branch_outcomes": 40,
+        "partially_covered_branches": [
+          {
+            "line": "const float* i3 = 3 < k ? *i++ : i0;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float* i4 = 4 < k ? *i++ : i0;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float* i5 = 5 < k ? *i++ : i0;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float* i6 = 6 < k ? *i++ : i0;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float* i7 = 7 < k ? *i++ : i0;",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "const float* i8 = 8 < k ? *i++ : i0;",
+            "true_taken": false,
+            "false_taken": true
+          }
+        ],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 42,
+        "lines_instrumented": 42,
+        "branch_outcomes_covered": 8,
+        "branch_outcomes": 8,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      }
+    },
+    "finished_utc": "2026-11-16T08:01:30.796045+00:00"
+  }
+]

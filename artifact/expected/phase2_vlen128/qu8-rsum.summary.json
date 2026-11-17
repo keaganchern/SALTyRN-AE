@@ -1,0 +1,48 @@
+{
+ "qu8-rsum": {
+  "rvv_file": "/home/ubuntu/SALTy-rn-AE/ae-out/verify128-opt/final/qu8-rsum.c",
+  "reference": "Phase-1 RVV",
+  "nan_rule": "strict (NaN==NaN, +0==-0)",
+  "vlen": 128,
+  "rvv_vlmax": 64,
+  "param_asserts": 0,
+  "secs": 600,
+  "max_verified": 2992,
+  "methods": [
+   "int"
+  ],
+  "max_paths": 1,
+  "stopped": [
+   {
+    "status": "TIMEOUT",
+    "batch": 2993,
+    "vlen": 128
+   }
+  ],
+  "stderr_tail": "",
+  "coverage": {
+   "reference": {
+    "lines_executed": 19,
+    "lines_instrumented": 19,
+    "branch_outcomes_covered": 2,
+    "branch_outcomes": 2,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 45,
+    "lines_instrumented": 45,
+    "branch_outcomes_covered": 9,
+    "branch_outcomes": 10,
+    "partially_covered_branches": [
+     {
+      "line": "const uint8_t* inner_end = (remaining > max_segment_len) ? (input + max_segment_len) : end;",
+      "true_taken": false,
+      "false_taken": true
+     }
+    ],
+    "unexecuted_lines": []
+   }
+  }
+ }
+}

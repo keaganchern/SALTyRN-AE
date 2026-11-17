@@ -1,0 +1,337 @@
+[
+ {
+  "kernel": "f32-maxpool",
+  "vlen": 128,
+  "budget_seconds": 600.0,
+  "status": "TIMEOUT",
+  "verified_shapes": 1101,
+  "completed_level": 10,
+  "attempted_shapes": 1102,
+  "methods": {
+   "ac": 14,
+   "split": 1090
+  },
+  "plan": {
+   "axes": [
+    {
+     "name": "output_pixels",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "kernel_elements",
+     "step": 1,
+     "max_index": null
+    },
+    {
+     "name": "channels",
+     "step": 1,
+     "max_index": null
+    }
+   ],
+   "variants": {},
+   "derived": {
+    "input_offset": "0",
+    "input_pixel_stride": "0",
+    "input_increment": "kernel_elements * sizeof(void*)",
+    "output_increment": "channels * sizeof(float)"
+   },
+   "preconditions": [
+    "output_pixels != 0",
+    "channels != 0"
+   ],
+   "candidate_checks": [],
+   "notes": [
+    "output_pixels: size (asserted nonzero), step 1",
+    "kernel_elements: size (used as a loop bound), step 1",
+    "channels: size (asserted nonzero), step 1"
+   ]
+  },
+  "induction": {
+   "applies": false,
+   "reason": "state carried across iterations: c_offset"
+  },
+  "rvv": "ae-out/verify128-md/cand/f32-maxpool.c",
+  "last_verified_shape": {
+   "output_pixels": 5,
+   "kernel_elements": 11,
+   "channels": 7
+  },
+  "started_utc": "2026-11-16T20:18:51.106356+00:00",
+  "elapsed_seconds": 599.1695401920006,
+  "complete_region": "output_pixels=1..10; kernel_elements=1..10; channels=1..10",
+  "stopped_shape": {
+   "output_pixels": 5,
+   "kernel_elements": 11,
+   "channels": 8
+  },
+  "stopped_level": 11,
+  "failure": {
+   "status": "TIMEOUT",
+   "seconds": 64.28893952001818,
+   "returncode": -9,
+   "method": null,
+   "events": [
+    {
+     "status": "SOLVING",
+     "dims": "5,11,8",
+     "config": "symbolic+sym-clamp"
+    }
+   ],
+   "stderr": "",
+   "hard_deadline": true,
+   "shape": {
+    "output_pixels": 5,
+    "kernel_elements": 11,
+    "channels": 8
+   },
+   "level": 11,
+   "elapsed_seconds": 450.2086163490312
+  },
+  "probes": {
+   "planned": 34,
+   "in_box": 9,
+   "verified": [
+    {
+     "kernel_elements": 11,
+     "output_pixels": 1,
+     "channels": 1
+    },
+    {
+     "kernel_elements": 12,
+     "output_pixels": 1,
+     "channels": 1
+    },
+    {
+     "kernel_elements": 13,
+     "output_pixels": 1,
+     "channels": 1
+    }
+   ],
+   "unverified": [
+    {
+     "shape": {
+      "kernel_elements": 14,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "kernel_elements": 15,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "kernel_elements": 16,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "kernel_elements": 17,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "kernel_elements": 18,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "kernel_elements": 19,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "kernel_elements": 22,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "TIMEOUT"
+    },
+    {
+     "shape": {
+      "kernel_elements": 23,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 24,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 25,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 26,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 27,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 28,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 29,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 30,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 31,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 32,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 33,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 34,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 35,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 36,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    },
+    {
+     "shape": {
+      "kernel_elements": 37,
+      "output_pixels": 1,
+      "channels": 1
+     },
+     "status": "NOT_RUN"
+    }
+   ]
+  },
+  "coverage": {
+   "verified_profiles": 1101,
+   "reference": {
+    "lines_executed": 103,
+    "lines_instrumented": 103,
+    "branch_outcomes_covered": 35,
+    "branch_outcomes": 40,
+    "partially_covered_branches": [
+     {
+      "line": "const float* i4 = 4 < k ? *i++ : i0;",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "const float* i5 = 5 < k ? *i++ : i0;",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "const float* i6 = 6 < k ? *i++ : i0;",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "const float* i7 = 7 < k ? *i++ : i0;",
+      "true_taken": false,
+      "false_taken": true
+     },
+     {
+      "line": "const float* i8 = 8 < k ? *i++ : i0;",
+      "true_taken": false,
+      "false_taken": true
+     }
+    ],
+    "unexecuted_lines": []
+   },
+   "candidate": {
+    "lines_executed": 52,
+    "lines_instrumented": 52,
+    "branch_outcomes_covered": 8,
+    "branch_outcomes": 8,
+    "partially_covered_branches": [],
+    "unexecuted_lines": []
+   }
+  },
+  "finished_utc": "2026-11-16T20:28:50.417141+00:00"
+ }
+]

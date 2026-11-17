@@ -1,0 +1,117 @@
+[
+  {
+    "kernel": "x32-transposec",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 4081,
+    "completed_level": 63,
+    "attempted_shapes": 4082,
+    "methods": {
+      "smt": 1,
+      "split": 4080
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "block_width",
+          "step": 1,
+          "max_index": null
+        },
+        {
+          "name": "block_height",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "input_stride": "block_width * sizeof(unsigned int) + 8",
+        "output_stride": "block_height * sizeof(unsigned int) + 8"
+      },
+      "preconditions": [
+        "block_width == 1 || output_stride >= block_height * sizeof(uint32_t)",
+        "block_height == 1 || input_stride >= block_width * sizeof(uint32_t)"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "block_width: size (used as a loop bound), step 1",
+        "block_height: size (used as a loop bound), step 1"
+      ]
+    },
+    "induction": {
+      "applies": false,
+      "reason": "outer for loop not over a size"
+    },
+    "rvv": "/home/ubuntu/SALTy-rn-clean/kernels/phase2/vlen512/x32-transposec.c",
+    "last_verified_shape": {
+      "block_width": 64,
+      "block_height": 49
+    },
+    "started_utc": "2026-11-17T08:45:00.343038+00:00",
+    "elapsed_seconds": 450.00319420394953,
+    "complete_region": "block_width=1..63; block_height=1..63",
+    "stopped_shape": {
+      "block_width": 64,
+      "block_height": 50
+    },
+    "stopped_level": 64,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 0.0866225860081613,
+      "returncode": -9,
+      "method": null,
+      "events": [],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "block_width": 64,
+        "block_height": 50
+      },
+      "level": 64,
+      "elapsed_seconds": 450.00311094499193
+    },
+    "probes": {
+      "planned": 4,
+      "in_box": 4,
+      "verified": [],
+      "unverified": []
+    },
+    "coverage": {
+      "verified_profiles": 4081,
+      "reference": {
+        "lines_executed": 17,
+        "lines_instrumented": 17,
+        "branch_outcomes_covered": 4,
+        "branch_outcomes": 4,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 86,
+        "lines_instrumented": 95,
+        "branch_outcomes_covered": 21,
+        "branch_outcomes": 22,
+        "partially_covered_branches": [
+          {
+            "line": "default:",
+            "true_taken": false,
+            "false_taken": true
+          }
+        ],
+        "unexecuted_lines": [
+          "}",
+          "}",
+          "}",
+          "}",
+          "}",
+          "}",
+          "}",
+          "default:",
+          "XNN_UNREACHABLE;"
+        ]
+      }
+    },
+    "finished_utc": "2026-11-17T08:52:30.521047+00:00"
+  }
+]

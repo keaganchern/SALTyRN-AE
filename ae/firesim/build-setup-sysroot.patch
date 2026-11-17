@@ -1,0 +1,15 @@
+diff --git a/scripts/build-setup.sh b/scripts/build-setup.sh
+index f56e54dd..a58c744f 100755
+--- a/scripts/build-setup.sh
++++ b/scripts/build-setup.sh
+@@ -219,6 +219,10 @@ conda environment or \`source env.sh\` and skip this step with \`-s 1\`." >&2
+     elif [ "$(printf '%s\n' "$SYSROOT_GLIBC" 2.33 | sort -V | head -n 1)" != 2.33 ]; then
+         echo "WARNING: Selected sysroot $SYSROOT_GLIBC is below glibc 2.33 required by VCS."
+     fi
++    if [ -n "${CY_KEEP_DEFAULT_SYSROOT:-}" ]; then
++        echo "CY_KEEP_DEFAULT_SYSROOT set; keeping sysroot $DEFAULT_GLIBC and the pre-generated lockfile."
++        SYSROOT_GLIBC=""
++    fi
+     if [ -n "$SYSROOT_GLIBC" ] && [ "$SYSROOT_GLIBC" != "$DEFAULT_GLIBC" ]; then
+         sed -i "s/^\([[:space:]]*-[[:space:]]*sysroot_linux-64=\)[0-9.]*/\1$SYSROOT_GLIBC/" "$CONDA_REQS/chipyard-base.yaml"
+         $CYDIR/scripts/generate-conda-lockfiles.sh

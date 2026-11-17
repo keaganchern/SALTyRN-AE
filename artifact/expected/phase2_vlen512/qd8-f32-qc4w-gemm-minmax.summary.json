@@ -1,0 +1,245 @@
+[
+  {
+    "kernel": "qd8-f32-qc4w-gemm-minmax",
+    "vlen": 512,
+    "budget_seconds": 600.0,
+    "status": "TIMEOUT",
+    "verified_shapes": 167,
+    "completed_level": 12,
+    "attempted_shapes": 168,
+    "methods": {
+      "uf": 13,
+      "split": 164
+    },
+    "plan": {
+      "axes": [
+        {
+          "name": "mr",
+          "step": 1,
+          "max_index": 1
+        },
+        {
+          "name": "nc",
+          "step": 1,
+          "max_index": 256
+        },
+        {
+          "name": "kc",
+          "step": 1,
+          "max_index": null
+        }
+      ],
+      "variants": {},
+      "derived": {
+        "a_stride": "kc",
+        "cm_stride": "256 * sizeof(float)",
+        "cn_stride": "16 * sizeof(float)"
+      },
+      "preconditions": [
+        "mr != 0",
+        "mr <= 1",
+        "nc != 0",
+        "kc != 0",
+        "kc % sizeof(int8_t) == 0"
+      ],
+      "candidate_checks": [],
+      "notes": [
+        "mr: size (asserted nonzero), step 1, at most 1",
+        "nc: size (asserted nonzero), step 1",
+        "kc: size (asserted nonzero), step 1"
+      ]
+    },
+    "induction": {
+      "applies": true,
+      "dim": "nc",
+      "stride": 128,
+      "cap": 256,
+      "assumption": "none: the reference's outer loop meets the same premise"
+    },
+    "rvv": "ae-out/p2md512-cand/h/qd8-f32-qc4w-gemm-minmax.c",
+    "last_verified_shape": {
+      "mr": 1,
+      "nc": 13,
+      "kc": 11
+    },
+    "started_utc": "2026-11-16T07:31:05.911668+00:00",
+    "elapsed_seconds": 576.9196922819829,
+    "complete_region": "mr=1..1; nc=1..12; kc=1..12",
+    "stopped_shape": {
+      "mr": 1,
+      "nc": 13,
+      "kc": 12
+    },
+    "stopped_level": 13,
+    "failure": {
+      "status": "TIMEOUT",
+      "seconds": 6.993906634976156,
+      "returncode": -9,
+      "method": null,
+      "events": [
+        {
+          "status": "SOLVING",
+          "dims": "1,13,12",
+          "config": "symbolic"
+        }
+      ],
+      "stderr": "",
+      "hard_deadline": true,
+      "shape": {
+        "mr": 1,
+        "nc": 13,
+        "kc": 12
+      },
+      "level": 13,
+      "elapsed_seconds": 450.0114979739883
+    },
+    "probes": {
+      "planned": 15,
+      "in_box": 4,
+      "verified": [
+        {
+          "nc": 16,
+          "mr": 1,
+          "kc": 1
+        },
+        {
+          "nc": 17,
+          "mr": 1,
+          "kc": 1
+        },
+        {
+          "nc": 16,
+          "mr": 1,
+          "kc": 3
+        },
+        {
+          "nc": 17,
+          "mr": 1,
+          "kc": 3
+        },
+        {
+          "kc": 4,
+          "mr": 1,
+          "nc": 16
+        },
+        {
+          "kc": 6,
+          "mr": 1,
+          "nc": 16
+        },
+        {
+          "kc": 7,
+          "mr": 1,
+          "nc": 16
+        },
+        {
+          "nc": 32,
+          "mr": 1,
+          "kc": 1
+        },
+        {
+          "nc": 33,
+          "mr": 1,
+          "kc": 1
+        },
+        {
+          "nc": 32,
+          "mr": 1,
+          "kc": 3
+        }
+      ],
+      "unverified": [
+        {
+          "shape": {
+            "nc": 33,
+            "mr": 1,
+            "kc": 3
+          },
+          "status": "TIMEOUT"
+        }
+      ]
+    },
+    "coverage": {
+      "verified_profiles": 167,
+      "reference": {
+        "lines_executed": 50,
+        "lines_instrumented": 50,
+        "branch_outcomes_covered": 6,
+        "branch_outcomes": 6,
+        "partially_covered_branches": [],
+        "unexecuted_lines": []
+      },
+      "candidate": {
+        "lines_executed": 49,
+        "lines_instrumented": 101,
+        "branch_outcomes_covered": 8,
+        "branch_outcomes": 14,
+        "partially_covered_branches": [
+          {
+            "line": "while (nc >= 2 * nr) {",
+            "true_taken": false,
+            "false_taken": true
+          },
+          {
+            "line": "for (size_t k = 0; k < kc; k += 2) {",
+            "true_taken": false,
+            "false_taken": false
+          },
+          {
+            "line": "if (k + 2 < kc) {",
+            "true_taken": false,
+            "false_taken": false
+          },
+          {
+            "line": "size_t vl = __riscv_vsetvl_e32m4(nc < nr ? nc : nr);",
+            "true_taken": true,
+            "false_taken": false
+          }
+        ],
+        "unexecuted_lines": [
+          "const uint8_t* w0_base = (const uint8_t*)w;",
+          "const uint8_t* w1_base = w0_base + bytes_per_tile;",
+          "size_t vl = __riscv_vsetvl_e32m4(nr);",
+          "vint32m4_t vacc0 = __riscv_vmul_vx_i32m4(__riscv_vle32_v_i32m4((const int32_t*)w0_base, vl), zp0, vl);",
+          "vint32m4_t vacc1 = __riscv_vmul_vx_i32m4(__riscv_vle32_v_i32m4((const int32_t*)w1_base, vl), zp0, vl);",
+          "const int8_t* ak = a0;",
+          "const int8_t* w0_w = (const int8_t*)(w0_base + nr * 4);",
+          "const int8_t* w1_w = (const int8_t*)(w1_base + nr * 4);",
+          "vint8m1_t wb0 = __riscv_vle8_v_i8m1(w0_w, vl);",
+          "vint8m1_t wb1 = __riscv_vle8_v_i8m1(w1_w, vl);",
+          "w0_w += nr; w1_w += nr;",
+          "for (size_t k = 0; k < kc; k += 2) {",
+          "const auto a_v0 = salt_as<int8_t>(salt_scalar(ak + (0)));",
+          "const auto a_v1 = salt_as<int8_t>(salt_scalar(ak + (1)));",
+          "ak += 2;",
+          "vint8m1_t low0  = __riscv_vsll_vx_i8m1(wb0, 4, vl);",
+          "vint8m1_t low1  = __riscv_vsll_vx_i8m1(wb1, 4, vl);",
+          "vint8m1_t high0 = __riscv_vand_vx_i8m1(wb0, (int8_t)0xF0, vl);",
+          "vint8m1_t high1 = __riscv_vand_vx_i8m1(wb1, (int8_t)0xF0, vl);",
+          "if (k + 2 < kc) {",
+          "wb0 = __riscv_vle8_v_i8m1(w0_w, vl);",
+          "wb1 = __riscv_vle8_v_i8m1(w1_w, vl);",
+          "w0_w += nr; w1_w += nr;",
+          "}",
+          "vint16m2_t p0_0 = __riscv_vwmul_vx_i16m2(low0, a_v0, vl);",
+          "vint16m2_t p1_0 = __riscv_vwmul_vx_i16m2(low1, a_v0, vl);",
+          "vint16m2_t p0_1 = __riscv_vwmul_vx_i16m2(high0, a_v1, vl);",
+          "vint16m2_t p1_1 = __riscv_vwmul_vx_i16m2(high1, a_v1, vl);",
+          "vacc0 = __riscv_vwadd_wv_i32m4(vacc0, p0_0, vl);",
+          "vacc1 = __riscv_vwadd_wv_i32m4(vacc1, p1_0, vl);",
+          "vacc0 = __riscv_vwadd_wv_i32m4(vacc0, p0_1, vl);",
+          "vacc1 = __riscv_vwadd_wv_i32m4(vacc1, p1_1, vl);",
+          "}",
+          "vacc0 = __riscv_vsra_vx_i32m4(vacc0, 4, vl);",
+          "vacc1 = __riscv_vsra_vx_i32m4(vacc1, 4, vl);",
+          "vfloat32m4_t vout0 = __riscv_vfcvt_f_x_v_f32m4(vacc0, vl);",
+          "vfloat32m4_t vout1 = __riscv_vfcvt_f_x_v_f32m4(vacc1, vl);",
+          "vout0 = __riscv_vfmul_vf_f32m4(vout0, inv_scale0, vl);",
+          "vout1 = __riscv_vfmul_vf_f32m4(vout1, inv_scale0, vl);",
+          "const float* w0_sb = (const float*)(w0_base + nr * 4 + (kc / 2) * nr);"
+        ]
+      }
+    },
+    "finished_utc": "2026-11-16T07:40:43.250761+00:00"
+  }
+]
